@@ -16,7 +16,7 @@ var cmdStr = "CREATE TABLE photoTags ( " +
 	"height INTEGER, " +
 	"location STRING, " + 
 	"tags STRING" +
-")"
+")";
 
 db.run(cmdStr,tableCreationCallback);
 
