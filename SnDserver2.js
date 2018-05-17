@@ -61,6 +61,7 @@ function handler (request, response) {
         return true;
     }
 
+    
     function generateObject(nums) {
         let query = "SELECT filename, width, height " +
                     "FROM photoTags " +
