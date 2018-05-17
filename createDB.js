@@ -11,7 +11,7 @@ var db = new sqlite3.Database(dbFileName);
 // Fix the error by removing or renaming PhotoQ.db
 var cmdStr = "CREATE TABLE photoTags ( " +
     "idNum INTEGER UNIQUE NOT NULL PRIMARY KEY, " +
-    "photo TEXT, " +
+    "filename TEXT, " +
     "width INTEGER, " + 
     "height INTEGER, " +
     "location STRING, " + 

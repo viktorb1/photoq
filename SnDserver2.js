@@ -1,60 +1,107 @@
 var http = require('http');
 var static = require('node-static');
-var url = require('url');
 var file = new static.Server('./public');
+
+var sqlite3 = require("sqlite3").verbose();  // use sqlite
+
+var dbFileName = "PhotoQ.db";
+// makes the object that represents the database in our code
+var db = new sqlite3.Database(dbFileName);
 
 //PROFESSORS CODE
 var fs = require('fs');  // file access module
-var imgList = [];
-
-loadImageList();
-
-function loadImageList () {
-    var data = fs.readFileSync('photoList.json');
-
-    if (! data) {
-        console.log("cannot read photoList.json");
-    } else {
-        listObj = JSON.parse(data);
-        imgList = listObj.photoURLs;
-    }
-}
 
 
 function handler (request, response) {
-	var query = url.parse(request.url, true).query;
 
-	if (request.url.startsWith("/query"))
-		dynamicHandler();
-	else
-		request.addListener('end', staticHandler).resume();
-
-
-	function dynamicHandler() {
-
-		var num = Number(query.num);
-
-		if(query.num != "" && Number.isInteger(num) && num >= 0 && num <= 988) {
-			response.writeHead(200, {"Content-Type": "text/html"});
-			response.write(imgList[num]);
-			response.end();
-		} else {
-			response.writeHead(400, {"Content-Type": "text/html"});
-			response.write("Bad request");
-			response.end();
-		}
-	}
+    if (request.url.startsWith("/query"))
+        dynamicHandler(request.url);
+    else
+        request.addListener('end', staticHandler).resume();
 
 
-	function staticHandler() {
-		file.serve(request, response, load404Page);
-	}
+    var nums;
+
+    function dynamicHandler(url) {
+        url = url.substring(6);
+
+        if (inputIsValid(url)) {
+            generateObject(nums);
+        } else {
+             response.writeHead(400, {"Content-Type": "text/html"});
+             response.write("Bad request");
+             response.end();
+        }
+    }
 
 
-	function load404Page(err, result) {
-		if(err && err.status === 404)
-			file.serveFile('/not-found.html', 400, {}, request, response);
-	}
+    function inputIsValid(url) {
+
+        if (!url.startsWith("?numList="))
+            return false;
+        else
+            url = url.substring(9);
+
+        nums = url.split('+').map(Number);
+        
+        if (nums.length == 0)
+            return false;
+
+        for(let i = 0; i < nums.length; i++) {
+            if (isNaN(nums[i]))
+                return false;
+            else if (nums[i] < 0)
+                return false;
+            else if (nums[i] > 988)
+                return false;
+            else if (!Number.isInteger(nums[i]))
+                return false;
+        }
+
+        return true;
+    }
+
+    function generateObject(nums) {
+        let photoInfo = [];
+
+        for (let i = 0; i < nums.length; i++) {
+            let query = "SELECT filename, width, height " +
+                        "FROM photoTags " +
+                        "WHERE idNum = " + nums[i] + " ;";
+
+            db.get(query, createObj);
+        }
+
+        function createObj(error, rowData) {
+            if (error)
+                console.log("error: ", error);
+            else {
+                let row = {};
+                row.filename = rowData.filename;
+                row.width = rowData.width;
+                row.height = rowData.height;
+                photoInfo.push(row);
+
+                if(photoInfo.length == nums.length) {
+                    response.writeHead(200, {"Content-Type": "text/html"});
+                    response.write(JSON.stringify(photoInfo));
+                    response.end();
+
+                }
+            }  
+        }
+    }
+
+
+    function staticHandler() {
+        file.serve(request, response, load404Page);
+    }
+
+
+    function load404Page(err, result) {
+        if(err && err.status === 404)
+            file.serveFile('/not-found.html', 400, {}, request, response);
+    }
 }
 
 var server = http.createServer(handler);
