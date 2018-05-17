@@ -7,11 +7,11 @@ var dbFileName = "PhotoQ.db";
 var db = new sqlite3.Database(dbFileName);
 
 function dumpDB() {
-	db.all ('Select * FROM photoTags', dataCallback);
+    db.all ('Select * FROM photoTags', dataCallback);
 
-	function dataCallback(err, data) {
-		console.log(data);
-	}
+    function dataCallback(err, data) {
+        console.log(data);
+    }
 }
 
 dumpDB();
