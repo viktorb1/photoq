@@ -62,32 +62,19 @@ function handler (request, response) {
     }
 
     function generateObject(nums) {
-        let photoInfo = [];
+        let query = "SELECT filename, width, height " +
+                    "FROM photoTags " +
+                    "WHERE idNum IN (" + nums.join(",") + ") ;";
 
-        for (let i = 0; i < nums.length; i++) {
-            let query = "SELECT filename, width, height " +
-                        "FROM photoTags " +
-                        "WHERE idNum = " + nums[i] + " ;";
+        db.all(query, writeObj);
 
-            db.get(query, createObj);
-        }
-
-        function createObj(error, rowData) {
+        function writeObj(error, rows) {
             if (error)
                 console.log("error: ", error);
             else {
-                let row = {};
-                row.filename = rowData.filename;
-                row.width = rowData.width;
-                row.height = rowData.height;
-                photoInfo.push(row);
-
-                if(photoInfo.length == nums.length) {
                     response.writeHead(200, {"Content-Type": "text/html"});
-                    response.write(JSON.stringify(photoInfo));
+                    response.write(JSON.stringify(rows));
                     response.end();
-
-                }
             }  
         }
     }
