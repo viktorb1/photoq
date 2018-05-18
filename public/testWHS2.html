@@ -1,46 +1,41 @@
 <!doctype HTML>
 <html>
 <head>
-<title>Web page for testing</title>
+<title>Photoq - Search for pictures!</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <link rel="stylesheet" type="text/css" href="http://web.cs.ucdavis.edu/~amenta/s18/reset.css">
 <link rel="stylesheet" type="text/css" href="testWHS2.css">
-<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet"> 
+<link href="https://fonts.googleapis.com/css?family=Lato
+:400,700,900" rel="stylesheet"> 
 </head>
 
 <body>
+    <header>
+        <h1>PHOTOQ</h1>
 
-<header>
-<h1>Testing PhotoQ</h1>
-</header>
+        <div id="query">
+            <input id="num" placeholder="Enter the photo number"> 
+            <button onclick="photoByNumber()">&#x1F50D;</button>
+        </div>
+    </header>
+
+    <main>
+        <div id="results">
+            <p id = "yousearchedfor">You searched for</p>
+        </div>
+
+        <div id="react"></div>
+        <!-- <div id="mynote"> -->
+        <p id="note">Nothing's been searched yet!<br/> Use the search above</p>
+    <!-- </div> -->
+    </main>
 
 
-<main>
-<div id="query">
-<P>
-Load a photo by number:
-</p>
-
-<input id="num" placeholder="photo number"> 
-<button onclick="photoByNumber()">Submit</button>
-</div>
-
-<div id="photoDisplay">
-<img id="photoImg">
-
-</div>
-
-<div id="react"></div>
-
-</main>
-
-<script src="https://unpkg.com/react@15/dist/react.js"></script> 
-<script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
-<script src="prop-types.js"></script>
-<script src="react-photo-gallery.js"></script>
-<!-- The Javascript for this page -->
-<script src="testWHS2.js"> </script>
-
+    <script src="https://unpkg.com/react@15/dist/react.js"></script> 
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+    <script src="prop-types.js"></script>
+    <script src="react-photo-gallery.js"></script>
+    <script src="testWHS2.js"> </script>
 </body>
 </html>

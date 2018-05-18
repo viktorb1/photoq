@@ -2,24 +2,44 @@
 body {
 	min-height: 100vh;  /* need this line to 
 					tell body to fill viewport */
-	font-family: 'Montserrat', sans-serif;
+	font-family: 'Lato', sans-serif;
 	background-color: white;
 	display: flex;
 	flex-direction: column;
-	color: blue;
+    color: #909EB8;
+    font-size: 1.5vw;
      }
 
-header {
-       text-align: center;
-       padding: 10px;
-	  
+#note {
+    width: 100%;
+    color: #909EB8;
+    font-size: 3vw;
+    text-align: center;
+    line-height: 5vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 70vh;
 }
 
+#yousearchedfor {
+    font-style: italic;
+    color: #223A6A;
+    font-weight: bold;
+}
 
+#results {
+    display: none;
+    margin-bottom: 1.5vw;
+    align-items: center;
+}
 
 
 main {
      flex: 1 0 auto;  /* the sticky footer trick without the footer */
+     padding: 2vw 4vw;
+     background: #F0F0F0;
+     align-items: center;
 }
 
 
@@ -31,8 +51,7 @@ input {
 
 
 p {
-	font-size: medium;
-	margin: 10px;
+	margin: 1vw;
 }
 
 div#photoDisplay {
@@ -46,9 +65,47 @@ img {
 
 
 
+header {
+    display: flex;
+    align-items: center;
+    flex: 0 0 auto;
+    margin: 1vw;
+}
 
+h1 {
+    font-size: 4vw;
+    margin: 2vw;
+    margin-right: 8vw;
+    font-weight: 900;
+    font-style: italic;
+    color: #223A6A;
+}
 
+#query {
+    display: flex;
+}
 
+#query input {
+    padding: 1vw;
+    font-size: 2vw;
+    border-radius: 0;
+    width: 40vw;
+    margin: 0;
+    border: 1px solid #828696;
+
+}
+
+#query button {
+    font-size: 2vw;
+    padding: 1vw;
+    margin: 0;
+    margin-left: -4px;
+    background: white;
+    border: 1px solid #828696;
+    color: #223A6A;
+    padding: 0 2vw;
+    font-size: 2vw;
+}
 
 
 
@@ -62,7 +119,8 @@ h2 {
 }
 
 body {
-     margin: 15px;
+    display: flex;
+    flex: 1 0 auto;
 }
 
 div.selectedControls {
