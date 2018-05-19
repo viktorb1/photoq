@@ -239,6 +239,7 @@ img.selected {
         font-weight: bold;
         color: #223A6A;
         margin-right: 4vw;
+        padding: 0 1vw;
     }
 
     #query button {
@@ -247,7 +248,7 @@ img.selected {
         border: none;
         font-weight: bold;
         color: #D0D0D0;
-        margin-left: 2.8vw;
+        margin-left: 0.5vw;
     }
 
     #query input {
