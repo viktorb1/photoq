@@ -7,17 +7,19 @@
 <link rel="stylesheet" type="text/css" href="http://web.cs.ucdavis.edu/~amenta/s18/reset.css">
 <link rel="stylesheet" type="text/css" href="testWHS2.css">
 <link href="https://fonts.googleapis.com/css?family=Lato
-:400,700,900" rel="stylesheet"> 
+:400,700i,900i" rel="stylesheet"> 
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
 <body>
     <header>
         <h1>PHOTOQ</h1>
 
-        <div id="query">
-            <input id="num" placeholder="Enter the photo number"> 
-            <button onclick="photoByNumber()">&#x1F50D;</button>
+        <div id="query"  class="toggle">
+            <input id="num"placeholder="Enter photo numbers here"> 
+            <button type="button" class="material-icons" onclick="photoByNumber()">search</button>
         </div>
+        <button id="mobilebutton" type="button" class="material-icons" onclick="toggleSearchBar()">search</button>
     </header>
 
     <main>

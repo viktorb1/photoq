@@ -63,6 +63,7 @@ function handler (request, response) {
 
     
     function generateObject(nums) {
+
         let query = "SELECT filename, width, height " +
                     "FROM photoTags " +
                     "WHERE idNum IN (" + nums.join(",") + ") ;";

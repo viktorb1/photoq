@@ -7,60 +7,64 @@ function photoByNumber() {
     var reactEl = document.getElementById("react");
     var results = document.getElementById("results");
 
-    if (inputIsValid(nums)) {
-        var oReq = new XMLHttpRequest();
-        var url = "query?numList=" + nums.join('+');
+    if (nums != ""){
+        if (inputIsValid(nums)) {
+            var oReq = new XMLHttpRequest();
+            var url = "query?numList=" + nums.join('+');
 
-        oReq.open("GET", url);
-        oReq.addEventListener("load", respCallback);
-        oReq.send();
+            oReq.open("GET", url);
+            oReq.addEventListener("load", respCallback);
+            oReq.send();
 
-        function respCallback() {
-            photos = JSON.parse(oReq.responseText);
-            var query = document.getElementById("query");
+            function respCallback() {
+                photos = JSON.parse(oReq.responseText);
+                var query = document.getElementById("query");
 
-            if (oReq.status == 400) {
-                
-                message.textContent = "Sorry, your request failed!";
-                message.style.display = "flex";
-                reactEl.style.display = "none"
-                results.style.display = "none";
-            } else {
-                message.style.display = "none";
-                reactEl.style.display = "block";
-                results.style.display = "flex";
-
-                var previousQuery = document.querySelectorAll(".searchQueries");
-
-                for(let i = 0; i < previousQuery.length; i++)
-                    results.removeChild(previousQuery[i]);
-
-                for(let i = 0; i < nums.length; i++)
-                {
-                    var searchQuery = document.createElement("p");
-                    searchQuery.textContent = nums[i];
-                    searchQuery.className = "searchQueries";
-                    results.appendChild(searchQuery);
-                }
-
-
-                var urlStart = "http://lotus.idav.ucdavis.edu/public/ecs162/UNESCO/";
-
-                for(let i = 0; i < photos.length; i++) 
-                    photos[i].src = urlStart + photos[i].filename;
-
-                app.setState({ photos: photos });
+                if (oReq.status == 400) {
                     
+                    message.textContent = "Sorry, your request failed!";
+                    message.style.display = "flex";
+                    reactEl.style.display = "none"
+                    results.style.display = "none";
+                } else {
+                    document.querySelector("#query").classList.add("toggle")
+                    message.style.display = "none";
+                    reactEl.style.display = "block";
+                    results.style.display = "flex";
+
+                    var previousQuery = document.querySelectorAll(".searchQueries");
+
+                    for(let i = 0; i < previousQuery.length; i++)
+                        results.removeChild(previousQuery[i]);
+
+                    for(let i = 0; i < nums.length; i++)
+                    {
+                        var searchQuery = document.createElement("p");
+                        searchQuery.textContent = nums[i];
+                        searchQuery.className = "searchQueries";
+                        results.appendChild(searchQuery);
+                    }
+
+
+                    var urlStart = "http://lotus.idav.ucdavis.edu/public/ecs162/UNESCO/";
+
+                    for(let i = 0; i < photos.length; i++) 
+                        photos[i].src = urlStart + photos[i].filename;
+
+                    app.setState({ photos: photos });
+                        
+                }
             }
+        } else {
+                // hide react element
+                reactEl.style.display = "none";
+                message.style.display = "flex";
+                message.textContent = "Invalid input, please try again!";
+                results.style.display = "none";
         }
     } else {
-            // hide react element
-            reactEl.style.display = "none";
-            message.style.display = "flex";
-            message.textContent = "Invalid input, please try again!";
-            results.style.display = "none";
+        document.querySelector("#query").classList.add("toggle");
     }
-    
 
     // from my server code
     function inputIsValid(url) {
@@ -70,7 +74,14 @@ function photoByNumber() {
         nums = url.split(',');
 
         for(let i = 0; i < nums.length; i++)
-            nums[i] = parseInt(nums[i]);
+        {
+            nums[i] = nums[i].trim();
+
+            if (String(parseInt(nums[i], 10)) !== nums[i])
+                return false;
+            else
+                nums[i] = parseInt(nums[i], 10);
+        }
         
         if (nums.length == 0)
             return false;
@@ -90,6 +101,11 @@ function photoByNumber() {
     }
 }
 
+
+function toggleSearchBar() {
+        document.querySelector("#query").classList.remove("toggle");
+        document.querySelector("#query input").select();
+}
 
 
 
@@ -163,14 +179,13 @@ class ImageTile extends React.Component {
 } // class
 
 
-var updatePhotos = {};
 // The react component for the whole image gallery
 // Most of the code for this is in the included library
 class App extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { photos: photos };
+        this.state = { photos: photos , width: window.innerWidth};
         this.selectTile = this.selectTile.bind(this);
     }
 
@@ -180,7 +195,7 @@ class App extends React.Component {
         this.setState({ photos: photos });
     }
 
-    componentWillMount() {
+    componentDidMount() {
         window.addEventListener('resize', this.handleWindowSizeChange);
     }
 
@@ -196,7 +211,7 @@ class App extends React.Component {
 
     render() {
         const { width } = this.state;
-        const isMobile = width <= 550;
+        const isMobile = (width <= 600);
 
         if(isMobile)
             return (React.createElement( Gallery, {photos: this.state.photos, 

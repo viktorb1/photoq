@@ -5,6 +5,8 @@ var sizeOf = require('image-size');
 var url = require('url');
 var http = require('http');
 
+http.globalAgent.maxSockets = 1;
+
 var dbFileName = "PhotoQ.db";
 var numURLs;
 // makes the object that represents the database in our code
@@ -12,7 +14,7 @@ var db = new sqlite3.Database(dbFileName);
 var count = 0;
 
 function loadDatabase() {
-    var file = fs.readFileSync('6whs.json', 'utf8');
+    var file = fs.readFileSync('photoList.json', 'utf8');
     var photoURLs = JSON.parse(file).photoURLs;
     numURLs = photoURLs.length;
 
