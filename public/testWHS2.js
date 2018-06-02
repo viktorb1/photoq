@@ -21,7 +21,7 @@ function photoByNumber() {
                 var query = document.getElementById("query");
 
                 if (oReq.status == 400) {
-                    
+
                     message.textContent = "Sorry, your request failed!";
                     message.style.display = "flex";
                     reactEl.style.display = "none"
@@ -48,11 +48,11 @@ function photoByNumber() {
 
                     var urlStart = "http://lotus.idav.ucdavis.edu/public/ecs162/UNESCO/";
 
-                    for(let i = 0; i < photos.length; i++) 
+                    for(let i = 0; i < photos.length; i++)
                         photos[i].src = urlStart + photos[i].filename;
 
                     app.setState({ photos: photos });
-                        
+
                 }
             }
         } else {
@@ -82,7 +82,7 @@ function photoByNumber() {
             else
                 nums[i] = parseInt(nums[i], 10);
         }
-        
+
         if (nums.length == 0)
             return false;
 
@@ -131,8 +131,8 @@ class TileControl extends React.Component {
     var photoName = _src.split("/").pop();
     photoName = photoName.split('%20').join(' ');
 
-        return ( React.createElement('div', 
-     {className: _selected ? 'selectedControls' : 'normalControls'},  
+        return ( React.createElement('div',
+     {className: _selected ? 'selectedControls' : 'normalControls'},
          // div contents - so far only one tag
               React.createElement(Tag,
          { text: photoName })
@@ -153,24 +153,24 @@ class ImageTile extends React.Component {
     let _selected = _photo.selected; // this one is just for readability
 
     return (
-        React.createElement('div', 
+        React.createElement('div',
             {style: {margin: this.props.margin, width: _photo.width},
              className: 'tile',
                          onClick: function onClick(e) {
                 console.log("tile onclick");
                 // call Gallery's onclick
-                return _onClick (e, 
-                         { index: _index, photo: _photo }) 
+                return _onClick (e,
+                         { index: _index, photo: _photo })
                 }
          }, // end of props of div
          // contents of div - the Controls and an Image
         React.createElement(TileControl,
-            {selected: _selected, 
+            {selected: _selected,
              src: _photo.src}),
         React.createElement('img',
-            {className: _selected ? 'selected' : 'normal', 
-                     src: _photo.src, 
-             width: _photo.width, 
+            {className: _selected ? 'selected' : 'normal',
+                     src: _photo.src,
+             width: _photo.width,
                      height: _photo.height
                 })
                 )//createElement div
@@ -214,12 +214,12 @@ class App extends React.Component {
         const isMobile = (width <= 600);
 
         if(isMobile)
-            return (React.createElement( Gallery, {photos: this.state.photos, 
-           onClick: this.selectTile, 
+            return (React.createElement( Gallery, {photos: this.state.photos,
+           onClick: this.selectTile,
            ImageComponent: ImageTile, columns: 1} ));
         else
-           return (React.createElement( Gallery, {photos: this.state.photos, 
-           onClick: this.selectTile, 
+           return (React.createElement( Gallery, {photos: this.state.photos,
+           onClick: this.selectTile,
            ImageComponent: ImageTile, columns: 2} ));
   }
 
