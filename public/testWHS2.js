@@ -75,7 +75,7 @@ function photoByNumber() {
     // from my server code
     function inputIsValid(url) {
 
-        keywords = url.split(' ');
+        keywords = url.split(',');
         
         if (keywords.length == 0)
             return false;
