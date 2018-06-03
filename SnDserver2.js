@@ -73,18 +73,17 @@ function handler (request, response) {
             if (error)
                 console.log("error: ", error);
             else {
-                    response.writeHead(200, {"Content-Type": "text/html"});
-                    console.log(rows);
+                response.writeHead(200, {"Content-Type": "text/html"});
 
-                    let toSend = { message: "", rows: rows}
+                let toSend = { message: "", rows: rows}
 
-                    if (rows.length == 0)
-                        toSend.message = "These were no photos satisfying this query.";
-                    else
-                        toSend.message = "These are all of the photos satisfying this query.";
+                if (rows.length == 0)
+                    toSend.message = "These were no photos satisfying this query.";
+                else
+                    toSend.message = "These are all of the photos satisfying this query.";
 
-                    response.write(JSON.stringify(toSend));
-                    response.end();
+                response.write(JSON.stringify(toSend));
+                response.end();
             }
         }
     }
@@ -100,6 +99,7 @@ function handler (request, response) {
             file.serveFile('/not-found.html', 400, {}, request, response);
     }
 }
+
 
 var server = http.createServer(handler);
 
