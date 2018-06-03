@@ -10,7 +10,7 @@ function photoByNumber() {
     if (keywords != ""){
         if (inputIsValid(keywords)) {
             var oReq = new XMLHttpRequest();
-            var url = "query?keyList=" + keywords.join('+');
+            var url = encodeURIComponent("query?keyList=" + keywords.join('+'));
 
             oReq.open("GET", url);
             oReq.addEventListener("load", respCallback);
@@ -18,7 +18,7 @@ function photoByNumber() {
 
             function respCallback() {
                 var resobj = JSON.parse(oReq.responseText)
-                photos = resobj.rows.slice(0,12);
+                photos = resobj.rows;
                 var query = document.getElementById("query");
 
                 if (oReq.status == 400) {
@@ -50,14 +50,14 @@ function photoByNumber() {
                         results.appendChild(searchQuery);
                     }
 
-
                     var urlStart = "http://lotus.idav.ucdavis.edu/public/ecs162/UNESCO/";
 
+                    var first12photos = photos.slice(0,12);
 
-                    for(let i = 0; i < photos.length; i++)
-                        photos[i].src = urlStart + photos[i].filename;
+                    for(let i = 0; i < first12photos.length; i++)
+                        first12photos[i].src = urlStart + first12photos[i].filename;
 
-                    app.setState({ photos: photos });
+                    app.setState({ photos: first12photos });
 
                 }
             }
@@ -127,6 +127,7 @@ class TileControl extends React.Component {
     )// return
     } // render
 };
+
 
 
 // A react component for an image tile

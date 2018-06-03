@@ -151,11 +151,12 @@ p.tagText {
    top: 4px; 
    position: absolute; 
    z-index: 2;
-   background-color: blue;
+   background-color: #86B2B5;
    padding: 5px;
    border-radius: 5px;
    color: white;
    word-break: break-all;
+   align: center;
 }
 
 p.searchQueries {
