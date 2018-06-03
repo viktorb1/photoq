@@ -287,3 +287,9 @@ img.selected {
     }
 
 }
+
+.remove-query {
+    color: white;
+    text-decoration: none;
+    margin-left: 1vw;
+}

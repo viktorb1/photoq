@@ -47,6 +47,21 @@ function photoByNumber() {
                         var searchQuery = document.createElement("p");
                         searchQuery.textContent = keywords[i];
                         searchQuery.className = "searchQueries";
+                        var queryRemover = document.createElement("a");
+                        queryRemover.href = '#';
+                        queryRemover.textContent = '✕';
+                        queryRemover.className = 'remove-query';
+                        queryRemover.dataset.query = keywords[i];
+
+                        queryRemover.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            console.log('removing', e.target.dataset.query);
+                            var index = keywords.indexOf(e.target.dataset.query);
+                            keywords.splice(index, 1);
+                            document.getElementById("keywords").value = keywords.join(',');
+                            photoByNumber();
+                        })
+                        searchQuery.appendChild(queryRemover);
                         results.appendChild(searchQuery);
                     }
 
