@@ -11,18 +11,23 @@ var db = new sqlite3.Database(dbFileName);
 //PROFESSORS CODE
 var fs = require('fs');  // file access module
 
+// querystring used to parse the url query
+var querystring = require('querystring');
+
 
 function handler (request, response) {
 
     if (request.url.startsWith("/query"))
-        dynamicHandler(request.url);
+        handleQuery(request.url);
+    else if (request.url.startsWith("/updateTag"))
+        handleUpdateTag(request.url);
     else
         request.addListener('end', staticHandler).resume();
 
 
     var keywords;
 
-    function dynamicHandler(url) {
+    function handleQuery(url) {
         url = decodeURIComponent(url).substring(6);
 
         if (inputIsValid(url)) {
@@ -32,6 +37,17 @@ function handler (request, response) {
              response.write("Bad request");
              response.end();
         }
+    }
+
+    function handleUpdateTag(url) {
+        var urlQuery = decodeURIComponent(url).split("?");
+        var queryObj = querystring.parse(urlQuery[1]);
+
+        let query = "UPDATE photoTags SET tags=? WHERE idNum = ?";
+        db.run(query, queryObj.tags, queryObj.idNum, function() {
+             response.writeHead(204);
+             response.end();
+        });
     }
 
 

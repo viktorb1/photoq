@@ -115,22 +115,54 @@ function toggleSearchBar() {
 
 // A react component for a tag
 class Tag extends React.Component {
+    remove(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        this.props.remove(this.props.text);
+    }
 
     render () {
-    return React.createElement('p',  // type
-        { className: 'tagText'}, // properties
-       this.props.text);  // contents
+        return React.createElement(
+            'p',  // type
+            { className: 'tagText'}, // properties
+            this.props.text,
+            React.createElement(
+                'a',
+                { className: 'remove-tag', onClick: this.remove.bind(this) },
+                '✕'
+            )
+        );  // contents
     }
 };
 
 
 // A react component for controls on an image tile
 class TileControl extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { tags: this.props.tags.split(',') };
+    }
+
+    removeTag(tag) {
+        var newTags = this.state.tags;
+        var index = newTags.indexOf(tag);
+        newTags.splice(index, 1);
+
+        var oReq = new XMLHttpRequest();
+        var url = encodeURIComponent("updateTags?idNum=" + this.props.photoId + '&tags=' + newTags.join(','));
+
+        oReq.open("GET", url);
+        oReq.addEventListener("load", function() {
+            this.setState({ tags: newTags });
+        }.bind(this));
+        oReq.send();
+    }
+
     render () {
         // remember input vars in closure
         var _selected = this.props.selected;
         var _src = this.props.src;
-        var _tags = this.props.tags.split(',');
+        var _tags = this.state.tags;
         // parse image src for photo name
         var photoNames = _src.split("/").pop();
         photoNames = photoNames.split('%20'); //.join(' ');
@@ -138,11 +170,15 @@ class TileControl extends React.Component {
         var args = [];
         args.push( 'div' );
         args.push( { className: _selected ? 'selectedControls' : 'normalControls'} )
-        
+
         for (var i = 0; i < _tags.length; i++)
-            args.push( React.createElement(Tag,
-            {text: _tags[i], parentImage: _src}
-        ) );
+            args.push(
+                React.createElement(Tag, {
+                    remove: this.removeTag.bind(this),
+                    text: _tags[i],
+                    parentImage: _src
+                })
+            );
 
         return ( React.createElement.apply(null, args) );
     }
@@ -174,6 +210,7 @@ class ImageTile extends React.Component {
          // contents of div - the Controls and an Image
         React.createElement(TileControl,
             {selected: _selected,
+             photoId: _photo.idNum,
              src: _photo.src,
             location: _photo.location,
             tags: _photo.tags}),

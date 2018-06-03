@@ -293,3 +293,9 @@ img.selected {
     text-decoration: none;
     margin-left: 1vw;
 }
+
+.remove-tag {
+    color: white;
+    text-decoration: none;
+    margin-left: 1vw;
+}
