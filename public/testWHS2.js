@@ -2,27 +2,32 @@ var photos = [];
 
 // Called when the user pushes the "submit" button
 function photoByNumber() {
-    var nums = document.getElementById("num").value;
+    var keywords = document.getElementById("keywords").value;
     var message = document.getElementById("note");
     var reactEl = document.getElementById("react");
     var results = document.getElementById("results");
 
-    if (nums != ""){
-        if (inputIsValid(nums)) {
+    if (keywords != ""){
+        if (inputIsValid(keywords)) {
             var oReq = new XMLHttpRequest();
-            var url = "query?numList=" + nums.join('+');
+            var url = "query?keyList=" + keywords.join('+');
 
             oReq.open("GET", url);
             oReq.addEventListener("load", respCallback);
             oReq.send();
 
             function respCallback() {
-                photos = JSON.parse(oReq.responseText);
+                var resobj = JSON.parse(oReq.responseText)
+                photos = resobj.rows.slice(0,12);
                 var query = document.getElementById("query");
 
                 if (oReq.status == 400) {
-
                     message.textContent = "Sorry, your request failed!";
+                    message.style.display = "flex";
+                    reactEl.style.display = "none"
+                    results.style.display = "none";
+                } else if (photos.length == 0) {
+                    message.textContent = resobj.message;
                     message.style.display = "flex";
                     reactEl.style.display = "none"
                     results.style.display = "none";
@@ -37,16 +42,17 @@ function photoByNumber() {
                     for(let i = 0; i < previousQuery.length; i++)
                         results.removeChild(previousQuery[i]);
 
-                    for(let i = 0; i < nums.length; i++)
+                    for(let i = 0; i < keywords.length; i++)
                     {
                         var searchQuery = document.createElement("p");
-                        searchQuery.textContent = nums[i];
+                        searchQuery.textContent = keywords[i];
                         searchQuery.className = "searchQueries";
                         results.appendChild(searchQuery);
                     }
 
 
                     var urlStart = "http://lotus.idav.ucdavis.edu/public/ecs162/UNESCO/";
+
 
                     for(let i = 0; i < photos.length; i++)
                         photos[i].src = urlStart + photos[i].filename;
@@ -68,34 +74,15 @@ function photoByNumber() {
 
     // from my server code
     function inputIsValid(url) {
-        if (url.length == 0)
+
+        keywords = url.split('+');
+        
+        if (keywords.length == 0)
             return false;
 
-        nums = url.split(',');
-
-        for(let i = 0; i < nums.length; i++)
-        {
-            nums[i] = nums[i].trim();
-
-            if (String(parseInt(nums[i], 10)) !== nums[i])
+        for(let i = 0; i < keywords.length; i++)
+            if (/[0-9!@#$%^&*()_-_/<>\[\]\{\\\/|\}`~]/.test(keywords[i]))
                 return false;
-            else
-                nums[i] = parseInt(nums[i], 10);
-        }
-
-        if (nums.length == 0)
-            return false;
-
-        for(let i = 0; i < nums.length; i++) {
-            if (isNaN(nums[i]))
-                return false;
-            else if (nums[i] < 0)
-                return false;
-            else if (nums[i] > 988)
-                return false;
-            else if (!Number.isInteger(nums[i]))
-                return false;
-        }
 
         return true;
     }
