@@ -37,8 +37,8 @@ body {
 
 
 main {
-     flex: 1 0 auto;  /* the sticky footer trick without the footer */
-     padding: 2vw 4vw;
+     flex: 1 0 auto;   /*the sticky footer trick without the footer */
+     padding: 2vw 2vw;
      background: #F0F0F0;
      align-items: center;
 }

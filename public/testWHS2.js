@@ -54,10 +54,12 @@ function photoByNumber() {
 
                     var first12photos = photos.slice(0,12);
 
-                    for(let i = 0; i < first12photos.length; i++)
+                    for(let i = 0; i < first12photos.length; i++) {
                         first12photos[i].src = urlStart + first12photos[i].filename;
+                    }
 
                     app.setState({ photos: first12photos });
+                    window.dispatchEvent(new Event('resize'));
 
                 }
             }
@@ -141,7 +143,6 @@ class ImageTile extends React.Component {
     var _onClick = this.props.onClick;
     var _index = this.props.index;
     var _photo = this.props.photo;
-    console.log(_photo.tags);
     let _selected = _photo.selected; // this one is just for readability
 
     return (
