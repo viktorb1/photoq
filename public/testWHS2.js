@@ -109,23 +109,26 @@ class Tag extends React.Component {
 
 // A react component for controls on an image tile
 class TileControl extends React.Component {
-
     render () {
-    // remember input vars in closure
+        // remember input vars in closure
         var _selected = this.props.selected;
         var _src = this.props.src;
+        var _tags = this.props.tags.split(',');
         // parse image src for photo name
-    var photoName = _src.split("/").pop();
-    photoName = photoName.split('%20').join(' ');
+        var photoNames = _src.split("/").pop();
+        photoNames = photoNames.split('%20'); //.join(' ');
 
-        return ( React.createElement('div',
-     {className: _selected ? 'selectedControls' : 'normalControls'},
-         // div contents - so far only one tag
-              React.createElement(Tag,
-         { text: photoName })
-        )// createElement div
-    )// return
-    } // render
+        var args = [];
+        args.push( 'div' );
+        args.push( { className: _selected ? 'selectedControls' : 'normalControls'} )
+        
+        for (var i = 0; i < _tags.length; i++)
+            args.push( React.createElement(Tag,
+            {text: _tags[i], parentImage: _src}
+        ) );
+
+        return ( React.createElement.apply(null, args) );
+    }
 };
 
 
@@ -138,6 +141,7 @@ class ImageTile extends React.Component {
     var _onClick = this.props.onClick;
     var _index = this.props.index;
     var _photo = this.props.photo;
+    console.log(_photo.tags);
     let _selected = _photo.selected; // this one is just for readability
 
     return (
@@ -154,12 +158,14 @@ class ImageTile extends React.Component {
          // contents of div - the Controls and an Image
         React.createElement(TileControl,
             {selected: _selected,
-             src: _photo.src}),
+             src: _photo.src,
+            location: _photo.location,
+            tags: _photo.tags}),
         React.createElement('img',
             {className: _selected ? 'selected' : 'normal',
-                     src: _photo.src,
-             width: _photo.width,
-                     height: _photo.height
+                    src: _photo.src,
+                    width: _photo.width,
+                    height: _photo.height,
                 })
                 )//createElement div
     ); // return

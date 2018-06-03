@@ -135,6 +135,7 @@ div.selectedControls {
         height: 100%;
         width: 100%;
         position: absolute;
+        flex-wrap: wrap;
 }
 
 div.normalControls {
