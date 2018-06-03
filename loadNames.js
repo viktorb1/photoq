@@ -81,7 +81,7 @@ function getTags() {
 
         let APIrequestObject = { "requests": []}
         APIrequestObject.requests = requests.slice(i, i+1);
-        timeToWait += 500;
+        timeToWait += 2000;
         setTimeout(annotateImage, timeToWait);
 
         function annotateImage() {
@@ -147,12 +147,18 @@ function getTags() {
 
 function insertIntoDB(i, max) {
     for (i; i < max; i++) {
+        if (!imgprops.location[i])
+            imgprops.location[i] = "";
+
+        if (!imgprops.tags[i])
+            imgprops.tags[i] = "";
+
         console.log("LOCATION: " + imgprops.location[i]);
         console.log("TAGS: " + imgprops.tags[i]);
 
         let sql = "INSERT INTO photoTags VALUES(?, ?, ?, ?, ?, ?)";
         
-        db.run(sql, [i, imgprops.fileName[i],  imgprops.height[i], imgprops.location[i], imgprops.tags[i]], doneInserting);
+        db.run(sql, [i, imgprops.fileName[i],  imgprops.width[i], imgprops.height[i], imgprops.location[i], imgprops.tags[i]], doneInserting);
     }
 }
 

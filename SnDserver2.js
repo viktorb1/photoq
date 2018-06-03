@@ -20,13 +20,13 @@ function handler (request, response) {
         request.addListener('end', staticHandler).resume();
 
 
-    var nums;
+    var keywords;
 
     function dynamicHandler(url) {
-        url = url.substring(6);
+        url = decodeURIComponent(url).substring(6);
 
         if (inputIsValid(url)) {
-            generateObject(nums);
+            generateObject(keywords);
         } else {
              response.writeHead(400, {"Content-Type": "text/html"});
              response.write("Bad request");
@@ -37,36 +37,35 @@ function handler (request, response) {
 
     function inputIsValid(url) {
 
-        if (!url.startsWith("?numList="))
+        if (!url.startsWith("?keyList="))
             return false;
         else
             url = url.substring(9);
 
-        nums = url.split('+').map(Number);
+        keywords = url.split('+');
         
-        if (nums.length == 0)
+        if (keywords.length == 0)
             return false;
 
-        for(let i = 0; i < nums.length; i++) {
-            if (isNaN(nums[i]))
+        for(let i = 0; i < keywords.length; i++)
+            if (/[0-9!@#$%^&*()_-_/<>\[\]\{\\\/|\}`~]/.test(keywords[i]))
                 return false;
-            else if (nums[i] < 0)
-                return false;
-            else if (nums[i] > 988)
-                return false;
-            else if (!Number.isInteger(nums[i]))
-                return false;
-        }
 
         return true;
     }
 
     
-    function generateObject(nums) {
+    function generateObject(keywords) {
 
-        let query = "SELECT filename, width, height " +
-                    "FROM photoTags " +
-                    "WHERE idNum IN (" + nums.join(",") + ") ;";
+        let query = "SELECT * FROM photoTags WHERE "
+
+        for (let i = 0; i < keywords.length; i++) {
+
+            query += "(location = \"" + keywords[i] + "\" OR tags LIKE \"%" + keywords[i] + "%\")"
+
+            if (i < keywords.length - 1)
+                query += " AND "
+        }
 
         db.all(query, writeObj);
 
@@ -75,9 +74,18 @@ function handler (request, response) {
                 console.log("error: ", error);
             else {
                     response.writeHead(200, {"Content-Type": "text/html"});
-                    response.write(JSON.stringify(rows));
+                    console.log(rows);
+
+                    let toSend = { message: "", rows: rows}
+
+                    if (rows.length == 0)
+                        toSend.message = "These were no photos satisfying this query.";
+                    else
+                        toSend.message = "These are all of the photos satisfying this query.";
+
+                    response.write(JSON.stringify(toSend));
                     response.end();
-            }  
+            }
         }
     }
 
