@@ -190,10 +190,9 @@ p.tagText {
 p.searchQueries {
     background: #808080;
     color: white;
-    padding: 2vw 3vw;
-    border-radius: 8vw;
+    border-radius: 5vw;
+    padding: .75vw 1vw;
 }
-
 
 img {
     display: block;
@@ -242,6 +241,11 @@ img.selected {
 
     #autocomplete-box {
         margin-top: 6.5vw;
+    }
+
+
+    p.searchQueries {
+        padding: 1vw 1.5vw;
     }
 }
 
@@ -321,6 +325,10 @@ img.selected {
         width: calc(100% - 2.5vw);
         border: none;
         font-size: 5vw;
+    }
+
+    p.searchQueries {
+        padding: 2vw 3vw;
     }
 
 }
