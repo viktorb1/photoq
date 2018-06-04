@@ -97,9 +97,13 @@ function photoByNumber() {
         if (keywords.length == 0)
             return false;
 
-        for(let i = 0; i < keywords.length; i++)
+        for(let i = 0; i < keywords.length; i++) {
+           
+            keywords[i] = keywords[i].trim();
+
             if (/[0-9!@#$%^&*()_-_/<>\[\]\{\\\/|\}`~,.]/.test(keywords[i]))
                 return false;
+        }
 
         return true;
     }
