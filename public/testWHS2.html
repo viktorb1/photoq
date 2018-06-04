@@ -16,7 +16,7 @@
         <h1>PHOTOQ</h1>
 
         <div id="query"  class="toggle">
-            <input id="keywords"placeholder="Enter photo keywords here" onfocus="showSuggestions()" onblur="hideSuggestions()"> 
+            <input id="keywords"placeholder="Enter photo keywords here" onfocus="showSuggestions()"> 
             <button type="button" class="material-icons" onclick="photoByNumber()">search</button>
                     <div id="autocomplete-box">
             <div id="selected-tags"></div>
@@ -33,7 +33,7 @@
 
     </header>
 
-    <main>
+    <main onclick="hideSuggestions()">
 
         <div id="results">
             <p id = "yousearchedfor">You searched for</p>

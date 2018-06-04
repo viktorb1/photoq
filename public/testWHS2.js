@@ -6,6 +6,7 @@ function photoByNumber() {
     var message = document.getElementById("note");
     var reactEl = document.getElementById("react");
     var results = document.getElementById("results");
+    hideSuggestions();
 
     if (keywords != ""){
         if (inputIsValid(keywords)) {
@@ -313,6 +314,7 @@ class App extends React.Component {
 
 const reactContainer = document.getElementById("react");
 var app = ReactDOM.render(React.createElement(App),reactContainer);
+
 
 
 
