@@ -162,13 +162,6 @@ class TileControl extends React.Component {
     }
 
 
-    remove(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        this.props.remove(this.props.text);
-    }
-
-
     render () {
         // remember input vars in closure
         var _selected = this.props.selected;

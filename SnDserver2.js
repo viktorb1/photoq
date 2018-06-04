@@ -77,7 +77,7 @@ function handler (request, response) {
 
         for (let i = 0; i < keywords.length; i++) {
 
-            query += "(location = \"" + keywords[i] + "\" OR tags LIKE \"%" + keywords[i] + "%\")"
+            query += "(location = \"" + keywords[i].trim() + "\" OR tags LIKE \"%" + keywords[i].trim() + "%\")"
 
             if (i < keywords.length - 1)
                 query += " AND "
