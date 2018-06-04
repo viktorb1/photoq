@@ -98,7 +98,7 @@ function photoByNumber() {
             return false;
 
         for(let i = 0; i < keywords.length; i++)
-            if (/[0-9!@#$%^&*()_-_/<>\[\]\{\\\/|\}`~]/.test(keywords[i]))
+            if (/[0-9!@#$%^&*()_-_/<>\[\]\{\\\/|\}`~,.]/.test(keywords[i]))
                 return false;
 
         return true;
@@ -158,6 +158,14 @@ class TileControl extends React.Component {
         oReq.send();
     }
 
+
+    remove(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        this.props.remove(this.props.text);
+    }
+
+
     render () {
         // remember input vars in closure
         var _selected = this.props.selected;
@@ -180,6 +188,16 @@ class TileControl extends React.Component {
                 })
             );
 
+        args.push(
+                React.createElement(
+                    'input',
+                    {
+                        className: 'add-new-tag',
+                        onClick:  this.removeTag.bind(this)
+                    }
+                )
+        );
+
         return ( React.createElement.apply(null, args) );
     }
 };
@@ -190,38 +208,59 @@ class TileControl extends React.Component {
 class ImageTile extends React.Component {
 
     render() {
-    // onClick function needs to remember these as a closure
-    var _onClick = this.props.onClick;
-    var _index = this.props.index;
-    var _photo = this.props.photo;
-    let _selected = _photo.selected; // this one is just for readability
+        // onClick function needs to remember these as a closure
+        var _onClick = this.props.onClick;
+        var _index = this.props.index;
+        var _photo = this.props.photo;
+        let _selected = _photo.selected; // this one is just for readability
 
-    return (
-        React.createElement('div',
-            {style: {margin: this.props.margin, width: _photo.width},
-             className: 'tile',
-                         onClick: function onClick(e) {
-                console.log("tile onclick");
-                // call Gallery's onclick
-                return _onClick (e,
-                         { index: _index, photo: _photo })
-                }
-         }, // end of props of div
-         // contents of div - the Controls and an Image
-        React.createElement(TileControl,
-            {selected: _selected,
-             photoId: _photo.idNum,
-             src: _photo.src,
-            location: _photo.location,
-            tags: _photo.tags}),
-        React.createElement('img',
-            {className: _selected ? 'selected' : 'normal',
-                    src: _photo.src,
-                    width: _photo.width,
-                    height: _photo.height,
-                })
-                )//createElement div
-    ); // return
+        return (
+            React.createElement(
+                'div',
+                {
+                    style: {margin: this.props.margin, width: _photo.width},
+                    className: 'tile',
+                    onClick: function onClick(e) {
+                        console.log("tile onclick");
+                        // call Gallery's onclick
+                        return _onClick (e, { index: _index, photo: _photo })
+                    }
+                },
+
+
+                React.createElement(
+                    'a',
+                    {
+                        className: 'remove-img',
+                        // onClick:  this.removeTag.bind(this)
+                    },
+                    '✕'
+                ),
+
+                // contents of div - the Controls and an Image
+                React.createElement(
+                    TileControl,
+                    {
+                        selected: _selected,
+                        photoId: _photo.idNum,
+                        src: _photo.src,
+                        location: _photo.location,
+                        tags: _photo.tags
+                    },
+                ),
+
+
+                React.createElement(
+                    'img',
+                    {
+                        className: _selected ? 'selected' : 'normal',
+                        src: _photo.src,
+                        width: _photo.width,
+                        height: _photo.height,
+                    }
+                )
+            )//createElement div
+        ); // return
     } // render
 } // class
 

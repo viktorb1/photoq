@@ -299,3 +299,14 @@ img.selected {
     text-decoration: none;
     margin-left: 1vw;
 }
+
+.remove-img {
+    color: white;
+    text-decoration: none;
+    margin: 2vw;
+    position: absolute;
+    float: right;
+    background: #00000050;
+    padding: 0.8vw 1vw;
+    border-radius: 100%;
+}
