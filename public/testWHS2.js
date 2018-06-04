@@ -103,6 +103,9 @@ function photoByNumber() {
 
             if (/[0-9!@#$%^&*()_-_/<>\[\]\{\\\/|\}`~,.]/.test(keywords[i]))
                 return false;
+
+            if (keywords[i] == "")
+                return false;
         }
 
         return true;

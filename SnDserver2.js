@@ -63,9 +63,10 @@ function handler (request, response) {
         if (keywords.length == 0)
             return false;
 
-        for(let i = 0; i < keywords.length; i++)
+        for(let i = 0; i < keywords.length; i++) {
             if (/[0-9!@#$%^&*()_-_/<>\[\]\{\\\/|\}`~]/.test(keywords[i]))
                 return false;
+        }
 
         return true;
     }
