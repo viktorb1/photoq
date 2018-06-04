@@ -333,7 +333,7 @@ img.selected {
     text-decoration: none;
     margin: 2vw;
     position: absolute;
-    float: right;
+    right: 0;
     background: #00000050;
     padding: 0.8vw 1vw;
     border-radius: 100%;
