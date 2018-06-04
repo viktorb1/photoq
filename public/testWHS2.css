@@ -190,7 +190,7 @@ p.tagText {
 p.searchQueries {
     background: #808080;
     color: white;
-    border-radius: 1vw;
+    border-radius: 10px;
     padding: .75vw 1vw;
 }
 
