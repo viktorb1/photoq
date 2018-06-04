@@ -181,7 +181,7 @@ p.tagText {
    z-index: 2;
    background-color: #86B2B5;
    padding: 5px;
-   border-radius: 5px;
+   border-radius: 10px;
    color: white;
    word-break: break-all;
    text-align: center;
