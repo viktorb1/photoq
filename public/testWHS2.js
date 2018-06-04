@@ -7,6 +7,7 @@ function photoByNumber() {
     var reactEl = document.getElementById("react");
     var results = document.getElementById("results");
     hideSuggestions();
+    document.querySelector("#query").classList.add("toggle");
 
     if (keywords != ""){
         if (inputIsValid(keywords)) {
@@ -86,8 +87,6 @@ function photoByNumber() {
                 message.textContent = "Invalid input, please try again!";
                 results.style.display = "none";
         }
-    } else {
-        document.querySelector("#query").classList.add("toggle");
     }
 
     // from my server code
