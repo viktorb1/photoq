@@ -354,5 +354,5 @@ img.selected {
     background: #00000050;
     padding: 0.8vw 1vw;
     border-radius: 100%;
-    z-index: 999;
+    z-index: 2;
 }
