@@ -193,7 +193,7 @@ class TileControl extends React.Component {
                     'input',
                     {
                         className: 'add-new-tag',
-                        onClick:  this.removeTag.bind(this)
+                        // onClick:  this.removeTag.bind(this)
                     }
                 )
         );
@@ -313,3 +313,16 @@ class App extends React.Component {
 
 const reactContainer = document.getElementById("react");
 var app = ReactDOM.render(React.createElement(App),reactContainer);
+
+
+
+function showSuggestions() {
+    var acb = document.getElementById("autocomplete-box");
+    acb.style.visibility = "visible";
+}
+
+
+function hideSuggestions() {
+    var acb = document.getElementById("autocomplete-box");
+    acb.style.visibility = "hidden";
+}

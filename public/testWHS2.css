@@ -33,6 +33,30 @@ body {
     align-items: center;
     display: none;
     flex-wrap: wrap;
+    width: 100%;
+}
+
+
+#autocomplete-box {
+    position: absolute;
+    background: white;
+    border: 1px solid #828696;
+    align-self: flex-start;
+    width: 40vw;
+    margin-top: 4.5vw;
+    padding: 1vw;
+    z-index: 999;
+    visibility: hidden;
+}
+
+#press-tab-message {
+    border-bottom: 1px solid #828696;
+    padding-bottom: 1vw;
+}
+
+#autocomplete-box p {
+    font-style: italic;
+    font-weight: 400;
 }
 
 
@@ -88,7 +112,7 @@ h1 {
 
 #query input {
     padding: 1vw;
-    font-size: 2vw;
+    font-size: 1.5vw;
     border-radius: 0;
     width: 40vw;
     margin: 0;
@@ -124,8 +148,8 @@ h2 {
 }
 
 body {
-    display: flex;
     flex: 1 0 auto;
+    font-size: 1.5vw;
 }
 
 div.selectedControls {
@@ -161,7 +185,7 @@ p.tagText {
    border-radius: 5px;
    color: white;
    word-break: break-all;
-   align: center;
+   text-align: center;
 }
 
 p.searchQueries {
@@ -215,6 +239,10 @@ img.selected {
 
     p.tagText {
         font-size: 2.5vw;
+    }
+
+    #autocomplete-box {
+        margin-top: 6.5vw;
     }
 }
 

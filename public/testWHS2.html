@@ -7,7 +7,7 @@
 <link rel="stylesheet" type="text/css" href="http://web.cs.ucdavis.edu/~amenta/s18/reset.css">
 <link rel="stylesheet" type="text/css" href="testWHS2.css">
 <link href="https://fonts.googleapis.com/css?family=Lato
-:400,700i,900i" rel="stylesheet"> 
+:400i,700i,900i" rel="stylesheet"> 
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
@@ -16,13 +16,25 @@
         <h1>PHOTOQ</h1>
 
         <div id="query"  class="toggle">
-            <input id="keywords"placeholder="Enter photo keywords here"> 
+            <input id="keywords"placeholder="Enter photo keywords here" onfocus="showSuggestions()" onblur="hideSuggestions()"> 
             <button type="button" class="material-icons" onclick="photoByNumber()">search</button>
+                    <div id="autocomplete-box">
+            <div id="selected-tags"></div>
+            <p id="press-tab-message">Press tab to create a tag & enter to search</p>
+            <div>
+                <p>Suggested Tags</p>
+                    <div>
+                    </div>
+
+            </div>
+        </div>
         </div>
         <button id="mobilebutton" type="button" class="material-icons" onclick="toggleSearchBar()">search</button>
+
     </header>
 
     <main>
+
         <div id="results">
             <p id = "yousearchedfor">You searched for</p>
         </div>
