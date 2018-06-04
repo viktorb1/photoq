@@ -16,18 +16,19 @@
         <h1>PHOTOQ</h1>
 
         <div id="query"  class="toggle">
-            <input id="keywords"placeholder="Enter photo keywords here" onkeydown="showSuggestions()"> 
-            <button type="button" class="material-icons" onclick="photoByNumber()">search</button>
-                    <div id="autocomplete-box">
-            <div id="selected-tags"></div>
-            <p id="press-tab-message">Press tab to create a tag & enter to search</p>
-            <div>
-                <p>Suggested Tags</p>
-                    <div>
-                    </div>
-
+            <div id="search">
+                <input id="keywords"placeholder="Enter photo keywords here" onkeydown="showSuggestions()" autocomplete="off"> 
+                <button type="button" class="material-icons" onclick="photoByNumber()">search</button>
             </div>
-        </div>
+            
+            <div id="autocomplete-box">
+                <div id="selected-tags"></div>
+                <p id="press-tab-message">Press tab to create a tag & enter to search</p>
+                <div>
+                    <p>Suggested Tags</p>
+                    <div></div>
+                </div>
+            </div>
         </div>
         <button id="mobilebutton" type="button" class="material-icons" onclick="toggleSearchBar()">search</button>
 

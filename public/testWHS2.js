@@ -129,7 +129,10 @@ class Tag extends React.Component {
             this.props.text,
             React.createElement(
                 'a',
-                { className: 'remove-tag', onClick: this.remove.bind(this) },
+                { 
+                    className: 'remove-tag', 
+                    onClick: this.remove.bind(this)
+                },
                 '✕'
             )
         );  // contents
@@ -182,11 +185,14 @@ class TileControl extends React.Component {
 
         for (var i = 0; i < _tags.length; i++)
             args.push(
-                React.createElement(Tag, {
-                    remove: this.removeTag.bind(this),
-                    text: _tags[i],
-                    parentImage: _src
-                })
+                React.createElement(
+                    Tag, 
+                    {
+                        remove: this.removeTag.bind(this),
+                        text: _tags[i],
+                        parentImage: _src
+                    }
+                )
             );
 
         args.push(
@@ -207,6 +213,16 @@ class TileControl extends React.Component {
 
 // A react component for an image tile
 class ImageTile extends React.Component {
+
+    remove(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log(this);
+        // var newTags = this.state.tags;
+        // var index = newTags.indexOf(tag);
+        // newTags.splice(index, 1);
+    }
+
 
     render() {
         // onClick function needs to remember these as a closure
@@ -233,7 +249,7 @@ class ImageTile extends React.Component {
                     'a',
                     {
                         className: 'remove-img',
-                        // onClick:  this.removeTag.bind(this)
+                        onClick:  this.remove.bind(this)
                     },
                     '✕'
                 ),
@@ -320,11 +336,11 @@ var app = ReactDOM.render(React.createElement(App),reactContainer);
 
 function showSuggestions() {
     var acb = document.getElementById("autocomplete-box");
-    acb.style.visibility = "visible";
+    acb.style.display = "block";
 }
 
 
 function hideSuggestions() {
     var acb = document.getElementById("autocomplete-box");
-    acb.style.visibility = "hidden";
+    acb.style.display = "none";
 }

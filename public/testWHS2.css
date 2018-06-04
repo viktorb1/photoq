@@ -46,7 +46,7 @@ body {
     margin-top: 4.5vw;
     padding: 1vw;
     z-index: 999;
-    visibility: hidden;
+    display: none;
 }
 
 #press-tab-message {
@@ -94,7 +94,7 @@ header {
     display: flex;
     align-items: center;
     flex: 0 0 auto;
-    margin: 1vw;
+    margin: 1vw 0;
 }
 
 h1 {
@@ -106,11 +106,11 @@ h1 {
     color: #223A6A;
 }
 
-#query {
+#query, #search {
     display: flex;
 }
 
-#query input {
+#search input {
     padding: 1vw;
     font-size: 1.5vw;
     border-radius: 0;
@@ -118,10 +118,9 @@ h1 {
     margin: 0;
     border: 1px solid #828696;
     color: #717171;
-
 }
 
-#query button {
+#search button {
     font-size: 2vw;
     padding: 1vw;
     margin: 0;
@@ -229,11 +228,11 @@ img.selected {
         line-height: 6vw;
     }
 
-    #query button { 
+    #search button { 
         font-size: 4.5vw;
     }
 
-    #query input {
+    #search input {
         font-size: 3vw;
     }
 
@@ -284,7 +283,7 @@ img.selected {
         padding: 0 1vw;
     }
 
-    #query button {
+    #search button {
         font-size: 10vw;
         background: white;
         border: none;
@@ -293,7 +292,7 @@ img.selected {
         margin-left: 0.5vw;
     }
 
-    #query input {
+    #search input {
         font-size: 6vw;
         height: 100%;
         width: auto;
@@ -306,12 +305,22 @@ img.selected {
     .toggle {
         display: none !important;
     }
-
     #query {
-        background: white;
         width: 100%;
-        position: absolute;
         align-items:center;
+        background:white;
+        flex-direction: column;
+        position: absolute;
+        top: 10px;
+        bottom: 0;
+        z-index: 999;
+    }
+
+    #autocomplete-box {
+        position: relative;
+        width: calc(100% - 2.5vw);
+        border: none;
+        font-size: 5vw;
     }
 
 }
