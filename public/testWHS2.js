@@ -123,20 +123,19 @@ function toggleSearchBar() {
 // A react component for a tag
 class Tag extends React.Component {
     remove(e) {
-        e.preventDefault();
         e.stopPropagation();
         this.props.remove(this.props.text);
     }
 
     render () {
         return React.createElement(
-            'p',  // type
-            { className: 'tagText'}, // properties
+            'p',
+            { className: 'tagText' },
             this.props.text,
             React.createElement(
                 'a',
-                { 
-                    className: 'remove-tag', 
+                {
+                    className: 'remove-tag',
                     onClick: this.remove.bind(this)
                 },
                 '✕'
@@ -145,6 +144,46 @@ class Tag extends React.Component {
     }
 };
 
+class TagInput extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { text: '' };
+    }
+
+    add(e) {
+        e.stopPropagation();
+        this.props.add(this.state.text);
+    }
+
+    render () {
+        return React.createElement(
+            'div',  // type
+            { className: 'add-new-tag' }, // properties
+            React.createElement('input', {
+                type: 'text',
+                value: this.state.text,
+                onClick: e => { e.stopPropagation() },
+                onKeyDown: e => {
+                    // enter was pressed
+                    if (e.keyCode == 13) {
+                        this.add(e);
+                    }
+                },
+                onChange: e => {
+                    this.setState({ text: e.target.value });
+                },
+            }),
+            React.createElement(
+                'a',
+                {
+                    className: 'add-tag',
+                    onClick: this.add.bind(this)
+                },
+                '+'
+            )
+        );  // contents
+    }
+};
 
 // A react component for controls on an image tile
 class TileControl extends React.Component {
@@ -168,6 +207,20 @@ class TileControl extends React.Component {
         oReq.send();
     }
 
+    addTag(tag) {
+        var newTags = this.state.tags;
+        newTags.push(tag);
+        newTags = Array.from(new Set(newTags));
+
+        var oReq = new XMLHttpRequest();
+        var url = encodeURIComponent("updateTags?idNum=" + this.props.photoId + '&tags=' + newTags.join(','));
+
+        oReq.open("GET", url);
+        oReq.addEventListener("load", function() {
+            this.setState({ tags: newTags });
+        }.bind(this));
+        oReq.send();
+    }
 
     render () {
         // remember input vars in closure
@@ -194,17 +247,11 @@ class TileControl extends React.Component {
                 )
             );
 
-        args.push(
-                React.createElement(
-                    'input',
-                    {
-                        className: 'add-new-tag',
-                        // onClick:  this.removeTag.bind(this)
-                    }
-                )
-        );
+        if (_tags.length < 7) {
+            args.push(React.createElement(TagInput, { add: this.addTag.bind(this) }));
+        }
 
-        return ( React.createElement.apply(null, args) );
+        return (React.createElement.apply(null, args));
     }
 };
 
@@ -214,7 +261,6 @@ class TileControl extends React.Component {
 class ImageTile extends React.Component {
 
     remove(e) {
-        e.preventDefault();
         e.stopPropagation();
         console.log(this);
         // var newTags = this.state.tags;
@@ -237,7 +283,6 @@ class ImageTile extends React.Component {
                     style: {margin: this.props.margin, width: _photo.width},
                     className: 'tile',
                     onClick: function onClick(e) {
-                        console.log("tile onclick");
                         // call Gallery's onclick
                         return _onClick (e, { index: _index, photo: _photo })
                     }

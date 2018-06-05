@@ -156,7 +156,7 @@ div.selectedControls {
         align-items: center;
         justify-content: center;
         height: 100%;
-        width: 100%;
+        width: 65%;
         position: absolute;
         flex-wrap: wrap;
         align-content: center;
@@ -174,17 +174,21 @@ div.tile {
     overflow: hidden; 
     float: left;
     position: relative;
+    display: flex;
+    justify-content: center;
 }
 
 /* Tag styling */
 p.tagText {
    z-index: 2;
    background-color: #86B2B5;
-   padding: 5px;
-   border-radius: 10px;
+   padding: 11px;
+   border-radius: 5px;
    color: white;
    word-break: break-all;
    text-align: center;
+   font-size: large;
+   margin: 7px;
 }
 
 p.searchQueries {
@@ -356,4 +360,25 @@ img.selected {
     border-radius: 100%;
     z-index: 2;
     border: 1px solid white;
+}
+
+.add-new-tag {
+    position: relative;
+}
+
+.add-new-tag input {
+    background: transparent;
+    border-color: #85b2b5;
+    color: white;
+    padding: 8px;
+    font-size: large;
+    margin: 7px;
+    width: 10vw;
+}
+
+.add-new-tag a.add-tag {
+    position: absolute;
+    right: 15px;
+    top: 12px;
+    color: #85b2b5;
 }
