@@ -9,7 +9,7 @@ function photoByNumber() {
     hideSuggestions();
     document.querySelector("#query").classList.add("toggle");
 
-    if (keywords != ""){
+    if (keywords != "") {
         if (inputIsValid(keywords)) {
             var oReq = new XMLHttpRequest();
             var url = encodeURIComponent("query?keyList=" + keywords.join('+'));
@@ -87,6 +87,12 @@ function photoByNumber() {
                 message.textContent = "Invalid input, please try again!";
                 results.style.display = "none";
         }
+    } else {
+        // hide react element
+        reactEl.style.display = "none";
+        message.style.display = "flex";
+        message.textContent = "You have no search terms in your input.";
+        results.style.display = "none";
     }
 
     // from my server code
