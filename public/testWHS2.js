@@ -235,6 +235,7 @@ class TileControl extends React.Component {
         var _selected = this.props.selected;
         var _src = this.props.src;
         var _tags = this.state.tags;
+        console.log(this.state.tags);
         // parse image src for photo name
         var photoNames = _src.split("/").pop();
         photoNames = photoNames.split('%20'); //.join(' ');

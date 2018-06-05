@@ -248,12 +248,15 @@ img.selected {
     padding: .75vw;
     font-size: large;
     width: 10vw;
+    padding-right: 2.5vw;
 }
 
 .add-new-tag a.add-tag {
     position: absolute;
-    right: 1.5vw;
+    right: 0;
     color: #85b2b5;
+    padding: 0.75vw 1vw;
+
 }
 
 
@@ -308,6 +311,7 @@ img.selected {
         width: 15vw;
         padding: 1vw;
         font-size: 2vw;
+        padding-right: 3.5vw;
     }
 
     .add-new-tag a.add-tag {
@@ -399,6 +403,7 @@ img.selected {
         width: 20vw;
         padding: 1vw;
         font-size: 4vw;
+        padding-right: 4vw;
     }
 
     .add-new-tag a.add-tag {
