@@ -240,7 +240,7 @@ class TileControl extends React.Component {
         var photoNames = _src.split("/").pop();
         photoNames = photoNames.split('%20'); //.join(' ');
 
-
+        var args = [];
         args.push( 'div' );
         args.push( { className: _selected ? 'selectedControls' : 'normalControls'} )
 
@@ -404,33 +404,21 @@ function addTagToSearchList() {
     var input = document.getElementById("keywords");
 
 
+    var searchItem = React.createElement(
+      "p",
+      { className: "tagText" },
+      input.value,
+      React.createElement(
+        "a",
+        { className: "remove-tag" },
+        "\u2715"
+      )
+    );
 
-}
-
-
-var searchTags = class searchTags extends React.Component {
-
-    constructor(props) {
-        this.setState({ searchItems : this.state.searchItems });
-    }
-
-
-    render() {
-        args.push( 
-            React.createElement(
-              "p",
-              { className: "tagText" },
-              input.value,
-              React.createElement(
-                "a",
-                { className: "remove-tag" },
-                "\u2715"
-              )
-            )
-        );
-
-        ReactDOM.render(
-        args,
+    ReactDOM.render(
+        searchItem,
         document.getElementById("selected-tags")
     );
+
 }
+
