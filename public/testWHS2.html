@@ -17,8 +17,12 @@
 
         <div id="query"  class="toggle">
             <div id="search">
-                <input id="keywords"placeholder="Enter photo keywords here"
-                onfocus="showSuggestions(event)" autocomplete="off">
+                <input 
+                id="keywords"
+                placeholder="Enter photo keywords here"
+                onfocus="showAutocomplete()"
+                onkeydown="generateSuggestions(event)"
+                autocomplete="off"/>
                 <button type="button" class="material-icons" onclick="photoByNumber()">search</button>
             </div>
 
@@ -51,7 +55,7 @@
 
     </header>
 
-    <main onclick="hideSuggestions()">
+    <main onclick="hideAutocomplete()">
 
         <div id="results">
             <p id = "yousearchedfor">You searched for</p>

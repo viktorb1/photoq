@@ -72,6 +72,7 @@ body {
     border-top: 1px solid #828696;
     padding-top: 1vw;
     flex-direction: column;
+    display: none;
 }
 
 
@@ -293,7 +294,7 @@ img.selected {
 
 #suggested-tags button p {
     transform: rotate(45deg);
-    font-size: 4vw;
+    font-size: 3vw;
     margin: 0;
     overflow: hidden;
     color: #223A6A;

@@ -6,8 +6,9 @@ function photoByNumber() {
     var message = document.getElementById("note");
     var reactEl = document.getElementById("react");
     var results = document.getElementById("results");
-    hideSuggestions();
+    hideAutocomplete();
     document.querySelector("#query").classList.add("toggle");
+    document.getElementById("suggestion-box").style.display = "none";
 
     if (keywords != "") {
         if (inputIsValid(keywords)) {
@@ -235,7 +236,6 @@ class TileControl extends React.Component {
         var _selected = this.props.selected;
         var _src = this.props.src;
         var _tags = this.state.tags;
-        console.log(this.state.tags);
         // parse image src for photo name
         var photoNames = _src.split("/").pop();
         photoNames = photoNames.split('%20'); //.join(' ');
@@ -369,17 +369,26 @@ var app = ReactDOM.render(React.createElement(App),reactContainer);
 
 
 
-function showSuggestions(e) {
-    if (e.keyCode == 13) {
-        photoByNumber();
-        return;
-    }
+function showAutocomplete() {
     var acb = document.getElementById("autocomplete-box");
     acb.style.display = "block";
 }
 
 
-function hideSuggestions() {
+
+
+function hideAutocomplete() {
     var acb = document.getElementById("autocomplete-box");
     acb.style.display = "none";
+}
+
+
+function generateSuggestions(e) {
+
+    if (e.keyCode == 13) {
+        photoByNumber();
+        return;
+    }
+
+    document.getElementById("suggestion-box").style.display = "block";
 }
