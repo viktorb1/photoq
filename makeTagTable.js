@@ -25,53 +25,59 @@ var accents = require("remove-accents");
 var tagTable = {};
 
 function makeTagTable(callback) {
-    const cmd = 'SELECT tags, landmark FROM photoTags';
+    const cmd = 'SELECT tags, location FROM photoTags';
     db.all(cmd, processTags);
 
     // database callback
     function processTags(err, data) {
-	if (err) {
-	    console.log(err)
-	} else {
-	    var tags, landmark;
-	    for (let i=0; i<data.length; i++) {
-		landmark = data[i].landmark;
-		insert(landmark, tagTable);
-		tags = data[i].tags;
-		let tagList = tags.split(", ");
-		tagList.map(function (tag) { tag.trim(); });
-		for (let j=0; j<tagList.length; j++) {
-		    insert(tagList[j],tagTable);
-		}
-	    }
-	    alphabetize();
-	    dumpToFile();
-	    callback(tagTable);
-	}
+        if (err) {
+            console.log(err)
+        } else {
+            var tags, landmark;
+            
+            for (let i=0; i<data.length; i++) {
+                landmark = data[i].landmark;
+                insert(landmark, tagTable);
+                tags = data[i].tags;
+                let tagList = tags.split(",");
+                tagList.map(function (tag) { tag.trim(); });
+                
+                for (let j=0; j<tagList.length; j++) {
+                    insert(tagList[j],tagTable);
+                }
+            
+            }
+
+            alphabetize();
+            dumpToFile();
+            callback(tagTable);
+            tagTable = {};
+        }
     }
 }
 
 
 function insert(tag, table) {
     if ((tag != "") && (tag != undefined)) {
+        var cleanTag = accents.remove(tag);
+        var tagKey = cleanTag.substr(0,2);
+        tagKey = tagKey.toLowerCase();
 
-	var cleanTag = accents.remove(tag);
-	var tagKey = cleanTag.substr(0,2);
-	tagKey = tagKey.toLowerCase();
-	
-	if (table.hasOwnProperty(tagKey)) {
-	    let oldObj = table[tagKey];
-	    if (oldObj.tags.hasOwnProperty(tag)) {
-		oldObj.tags[tag] += 1;
-	    } else {
-		oldObj.tags[tag] = 1;
-	    }
-	    table[tagKey] = oldObj; 
-	} else {
-	    var newObj = { tags: {} };
-	    newObj.tags[tag] = 1;
-	    table[tagKey] = newObj;
-	}
+        if (table.hasOwnProperty(tagKey)) {
+            let oldObj = table[tagKey];
+
+            if (oldObj.tags.hasOwnProperty(tag)) {
+                oldObj.tags[tag] += 1;
+            } else {
+                oldObj.tags[tag] = 1;
+            }
+
+            table[tagKey] = oldObj; 
+        } else {
+            var newObj = { tags: {} };
+            newObj.tags[tag] = 1;
+            table[tagKey] = newObj;
+        }
     }
 }
 
@@ -82,7 +88,7 @@ function alphabetize() {
     console.log(keys.length," keys");
     keys.sort();
     keys.forEach( function(key) {
-	ordered[key] = tagTable[key];
+    ordered[key] = tagTable[key];
     });
     tagTable = ordered;
 }
@@ -90,10 +96,10 @@ function alphabetize() {
 
 function dumpToFile() {
     fs.writeFile("xxx.json", JSON.stringify(tagTable), function(err) {
-	if(err) {
-	    return console.log(err);
-	}
-	console.log("The file was saved!");
+    if(err) {
+        return console.log(err);
+    }
+    console.log("The file was saved!");
     }); 
 }
 

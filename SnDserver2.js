@@ -1,6 +1,7 @@
 var http = require('http');
 var static = require('node-static');
 var file = new static.Server('./public');
+var auto = require("./makeTagTable");
 
 var sqlite3 = require("sqlite3").verbose();  // use sqlite
 
@@ -27,17 +28,21 @@ function handler (request, response) {
 
     var keywords;
 
+
     function handleQuery(url) {
         url = decodeURIComponent(url).substring(6);
 
-        if (inputIsValid(url)) {
+        if (isValidKeyList(url)) {
             generateObject(keywords);
+        } else if (isValidAutocomplete(url)) {
+            generateAutocomplete(url);
         } else {
              response.writeHead(400, {"Content-Type": "text/html"});
              response.write("Bad request");
              response.end();
         }
     }
+
 
     function handleUpdateTag(url) {
         var urlQuery = decodeURIComponent(url).split("?");
@@ -51,22 +56,34 @@ function handler (request, response) {
     }
 
 
-    function inputIsValid(url) {
+    function isValidKeyList(url) {
 
         if (!url.startsWith("?keyList="))
             return false;
-        else
-            url = url.substring(9);
-
+        
+        url = url.substring(9);
         keywords = url.split('+');
         
         if (keywords.length == 0)
             return false;
 
-        for(let i = 0; i < keywords.length; i++) {
+        for(let i = 0; i < keywords.length; i++)
             if (/[0-9!@#$%^&*()_-_/<>\[\]\{\\\/|\}`~]/.test(keywords[i]))
                 return false;
-        }
+
+        return true;
+    }
+
+
+    function isValidAutocomplete(url) {
+
+        if (!url.startsWith("?autocomplete="))
+            return false;
+
+        url = url.substring(14);
+
+        if (url.length == 1)
+            return false;
 
         return true;
     }
@@ -86,6 +103,7 @@ function handler (request, response) {
 
         db.all(query, writeObj);
 
+
         function writeObj(error, rows) {
             if (error)
                 console.log("error: ", error);
@@ -102,6 +120,24 @@ function handler (request, response) {
                 response.write(JSON.stringify(toSend));
                 response.end();
             }
+        }
+    }
+
+    function generateAutocomplete(url) {
+        var keyword = url.substring(14);
+
+        auto.makeTagTable(tagTableCallback);
+
+        function tagTableCallback(data) {
+            let subTable = Object.assign({}, data[keyword.slice(0,2)]);
+
+            for (let prop in subTable.tags)
+                if (!prop.startsWith(keyword))
+                    delete subTable.tags[prop];
+
+            response.writeHead(200, {"Content-Type": "text/html"});
+            response.write(JSON.stringify(subTable));
+            response.end();
         }
     }
 
