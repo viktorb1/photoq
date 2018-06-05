@@ -240,7 +240,7 @@ class TileControl extends React.Component {
         var photoNames = _src.split("/").pop();
         photoNames = photoNames.split('%20'); //.join(' ');
 
-        var args = [];
+
         args.push( 'div' );
         args.push( { className: _selected ? 'selectedControls' : 'normalControls'} )
 
@@ -390,5 +390,47 @@ function generateSuggestions(e) {
         return;
     }
 
+    if (e.keyCode == 9) {
+        e.preventDefault();
+        addTagToSearchList();
+        return;
+    }
+
     document.getElementById("suggestion-box").style.display = "block";
+}
+
+
+function addTagToSearchList() {
+    var input = document.getElementById("keywords");
+
+
+
+}
+
+
+var searchTags = class searchTags extends React.Component {
+
+    constructor(props) {
+        this.setState({ searchItems : this.state.searchItems });
+    }
+
+
+    render() {
+        args.push( 
+            React.createElement(
+              "p",
+              { className: "tagText" },
+              input.value,
+              React.createElement(
+                "a",
+                { className: "remove-tag" },
+                "\u2715"
+              )
+            )
+        );
+
+        ReactDOM.render(
+        args,
+        document.getElementById("selected-tags")
+    );
 }
