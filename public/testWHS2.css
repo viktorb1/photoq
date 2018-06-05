@@ -40,24 +40,44 @@ body {
 #autocomplete-box {
     position: absolute;
     background: white;
-    border: 1px solid #828696;
+    border: 1px solid #223A6A;
     align-self: flex-start;
     width: 40vw;
     margin-top: 4.5vw;
-    padding: 1vw;
+    padding: 1.5vw;
     z-index: 999;
     display: none;
 }
 
 #press-tab-message {
-    border-bottom: 1px solid #828696;
     padding-bottom: 1vw;
 }
 
-#autocomplete-box p {
-    font-style: italic;
-    font-weight: 400;
+
+#suggested-tags {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
+
+#selected-tags {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+#suggestion-box {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid #828696;
+    padding-top: 1vw;
+    flex-direction: column;
+}
+
+
+ button p {
+    font-style: normal;
+ }
 
 
 main {
@@ -76,7 +96,8 @@ input {
 
 
 p {
-	margin: 1vw;
+	margin: 1vw 0.5vw;
+    font-size: 1.5vw;
 }
 
 div#photoDisplay {
@@ -111,12 +132,12 @@ h1 {
 }
 
 #search input {
-    padding: 1vw;
+    padding: 1vw 1.5vw;
     font-size: 1.5vw;
     border-radius: 0;
     width: 40vw;
     margin: 0;
-    border: 1px solid #828696;
+    border: 1px solid #223A6A;
     color: #717171;
 }
 
@@ -126,7 +147,7 @@ h1 {
     margin: 0;
     margin-left: -2px;
     background: white;
-    border: 1px solid #828696;
+    border: 1px solid #223A6A;
     color: #223A6A;
     padding: 0 1.5vw;
     font-size: 3vw;
@@ -162,7 +183,7 @@ div.selectedControls {
         font-size: 2vw;
         background: #00000090;
         padding: 0 6vw;
-        width: 100%;
+        width: 90%;
 }
 
 div.normalControls {
@@ -181,7 +202,7 @@ div.tile {
 }
 
 /* Tag styling */
-p.tagText {
+.tagText {
    z-index: 2;
    background-color: #86B2B5;
    padding: 1vw;
@@ -260,7 +281,32 @@ img.selected {
     right: 0;
     color: #85b2b5;
     padding: 0.75vw 1vw;
+}
 
+
+#suggested-tags button {
+    background: transparent;
+    border: none;
+    overflow: hidden;
+    padding: 0;
+}
+
+#suggested-tags button p {
+    transform: rotate(45deg);
+    font-size: 4vw;
+    margin: 0;
+    overflow: hidden;
+    color: #223A6A;
+}
+
+
+.suggested-tag {
+    padding-right: 1vw;
+}
+
+.suggested-landmark {
+    padding-right: 1vw;
+    background: #00C1CA;
 }
 
 
@@ -291,10 +337,6 @@ img.selected {
     }
 
     #search input {
-        font-size: 3vw;
-    }
-
-    p.tagText {
         font-size: 2.5vw;
     }
 
@@ -307,7 +349,7 @@ img.selected {
         padding: 1vw 1.5vw;
     }
 
-    p.tagText {
+    .tagText {
         margin: 0.5vw;
     }
 
@@ -321,6 +363,10 @@ img.selected {
     .add-new-tag a.add-tag {
         font-size: 4vw;
     }
+
+    p {
+        font-size: 2vw;
+    }
 }
 
 @media (max-width: 600px) {
@@ -329,7 +375,7 @@ img.selected {
         margin-left: 4vw;
     }
 
-    p.tagText {
+    .tagText {
         font-size: 4.5vw;
     }
 

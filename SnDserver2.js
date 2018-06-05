@@ -123,6 +123,7 @@ function handler (request, response) {
         }
     }
 
+
     function generateAutocomplete(url) {
         var keyword = url.substring(14);
 

@@ -269,14 +269,6 @@ class TileControl extends React.Component {
 // A react component for an image tile
 class ImageTile extends React.Component {
 
-    remove(e) {
-        e.stopPropagation();
-        console.log(this);
-        // var newTags = this.state.tags;
-        // var index = newTags.indexOf(tag);
-        // newTags.splice(index, 1);
-    }
-
 
     render() {
         // onClick function needs to remember these as a closure
@@ -296,16 +288,6 @@ class ImageTile extends React.Component {
                         return _onClick (e, { index: _index, photo: _photo })
                     }
                 },
-
-
-                React.createElement(
-                    'a',
-                    {
-                        className: 'remove-img',
-                        onClick:  this.remove.bind(this)
-                    },
-                    '✕'
-                ),
 
                 // contents of div - the Controls and an Image
                 React.createElement(
