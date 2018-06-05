@@ -158,7 +158,9 @@ class TagInput extends React.Component {
 
     add(e) {
         e.stopPropagation();
-        this.props.add(this.state.text);
+        if (this.state.text != "" && !this.state.text.includes(',')) {
+            this.props.add(this.state.text);
+        }
     }
 
     render () {
