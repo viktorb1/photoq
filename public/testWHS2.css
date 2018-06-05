@@ -156,11 +156,12 @@ div.selectedControls {
         align-items: center;
         justify-content: center;
         height: 100%;
-        width: 65%;
         position: absolute;
         flex-wrap: wrap;
         align-content: center;
         font-size: 2vw;
+        background: #00000090;
+        padding: 0 6vw;
 }
 
 div.normalControls {
