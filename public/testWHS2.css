@@ -162,6 +162,7 @@ div.selectedControls {
         font-size: 2vw;
         background: #00000090;
         padding: 0 6vw;
+        width: 100%;
 }
 
 div.normalControls {
@@ -190,6 +191,7 @@ p.tagText {
    text-align: center;
    font-size: large;
    margin: 7px;
+   padding-right: 0;
 }
 
 p.searchQueries {
@@ -220,7 +222,8 @@ img.selected {
 .remove-tag {
     color: white;
     text-decoration: none;
-    margin-left: 1vw;
+    padding: 0.8vw 0.5vw;
+    margin: 0 0.5vw;
 }
 
 .remove-img {
