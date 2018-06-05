@@ -182,7 +182,7 @@ div.tile {
 p.tagText {
    z-index: 2;
    background-color: #86B2B5;
-   padding: 11px;
+   padding: 1vw;
    border-radius: 5px;
    color: white;
    word-break: break-all;
@@ -208,6 +208,54 @@ img.normal {
 
 img.selected {
 }
+
+
+.remove-query {
+    color: white;
+    text-decoration: none;
+    margin-left: 1vw;
+}
+
+.remove-tag {
+    color: white;
+    text-decoration: none;
+    margin-left: 1vw;
+}
+
+.remove-img {
+    color: white;
+    text-decoration: none;
+    margin: 2vw;
+    position: absolute;
+    right: 0;
+    background: #00000050;
+    padding: 0.8vw 1vw;
+    border-radius: 100%;
+    z-index: 2;
+    border: 1px solid white;
+}
+
+.add-new-tag {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.add-new-tag input {
+    background: transparent;
+    border-color: #85b2b5;
+    color: white;
+    padding: .75vw;
+    font-size: large;
+    width: 10vw;
+}
+
+.add-new-tag a.add-tag {
+    position: absolute;
+    right: 1.5vw;
+    color: #85b2b5;
+}
+
 
 @media (min-width: 601px) {
     #mobilebutton {
@@ -251,9 +299,21 @@ img.selected {
     p.searchQueries {
         padding: 1vw 1.5vw;
     }
+
+    p.tagText {
+        margin: 0.5vw;
+    }
+
+    .add-new-tag input {
+        width: 15vw;
+        padding: 1vw;
+        font-size: 2vw;
+    }
+
+    .add-new-tag a.add-tag {
+        font-size: 4vw;
+    }
 }
-
-
 
 @media (max-width: 600px) {
     h1 {
@@ -335,50 +395,13 @@ img.selected {
         padding: 2vw 3vw;
     }
 
-}
+    .add-new-tag input {
+        width: 20vw;
+        padding: 1vw;
+    }
 
-.remove-query {
-    color: white;
-    text-decoration: none;
-    margin-left: 1vw;
-}
+    .add-new-tag a.add-tag {
+        font-size: 5.5vw;
+    }
 
-.remove-tag {
-    color: white;
-    text-decoration: none;
-    margin-left: 1vw;
-}
-
-.remove-img {
-    color: white;
-    text-decoration: none;
-    margin: 2vw;
-    position: absolute;
-    right: 0;
-    background: #00000050;
-    padding: 0.8vw 1vw;
-    border-radius: 100%;
-    z-index: 2;
-    border: 1px solid white;
-}
-
-.add-new-tag {
-    position: relative;
-}
-
-.add-new-tag input {
-    background: transparent;
-    border-color: #85b2b5;
-    color: white;
-    padding: 8px;
-    font-size: large;
-    margin: 7px;
-    width: 10vw;
-}
-
-.add-new-tag a.add-tag {
-    position: absolute;
-    right: 15px;
-    top: 12px;
-    color: #85b2b5;
 }
