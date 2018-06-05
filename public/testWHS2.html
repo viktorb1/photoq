@@ -17,10 +17,11 @@
 
         <div id="query"  class="toggle">
             <div id="search">
-                <input id="keywords"placeholder="Enter photo keywords here" onkeydown="showSuggestions()" autocomplete="off"> 
+                <input id="keywords"placeholder="Enter photo keywords here"
+                onkeydown="showSuggestions(event)" autocomplete="off">
                 <button type="button" class="material-icons" onclick="photoByNumber()">search</button>
             </div>
-            
+
             <div id="autocomplete-box">
                 <div id="selected-tags"></div>
                 <p id="press-tab-message">Press tab to create a tag & enter to search</p>

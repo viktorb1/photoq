@@ -386,7 +386,11 @@ var app = ReactDOM.render(React.createElement(App),reactContainer);
 
 
 
-function showSuggestions() {
+function showSuggestions(e) {
+    if (e.keyCode == 13) {
+        photoByNumber();
+        return;
+    }
     var acb = document.getElementById("autocomplete-box");
     acb.style.display = "block";
 }
