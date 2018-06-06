@@ -397,7 +397,11 @@ class AutoComplete extends React.Component {
     }
 
     addTag(tag) {
-        this.setState({ selectedTags: this.state.selectedTags.concat([tag]) })
+        document.getElementById("keywords").value = '';
+        this.setState({
+            selectedTags: this.state.selectedTags.concat([tag]),
+            tags: [],
+        })
     }
 
     removeTag(tag) {
@@ -446,6 +450,11 @@ class AutoComplete extends React.Component {
                     "div",
                     { id: "selected-tags" },
                     selectedTagsElements,
+                ),
+                React.createElement(
+                    "p",
+                    { className: "ab-message" },
+                    'Press tab to create a tag & enter to search',
                 ),
                 React.createElement(
                     "div",
@@ -501,5 +510,10 @@ function searchKeyDown(e) {
     if (e.keyCode == 13) {
         photoByNumber();
         return;
+    }
+
+    if (e.keyCode == 9) {
+        e.preventDefault();
+        autocomplete.addTag(document.getElementById("keywords").value);
     }
 }

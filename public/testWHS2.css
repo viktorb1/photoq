@@ -68,6 +68,8 @@ body {
     justify-content: space-between;
     flex-direction: column;
     display: none;
+    border-top: 1px solid #828696;
+    padding-top: 1vw;
 }
 
 button p {
