@@ -36,7 +36,7 @@ function makeTagTable(callback) {
             var tags, landmark;
             
             for (let i=0; i<data.length; i++) {
-                landmark = data[i].landmark;
+                landmark = data[i].location;
                 insert(landmark, tagTable);
                 tags = data[i].tags;
                 let tagList = tags.split(",");
@@ -61,7 +61,7 @@ function insert(tag, table) {
     if ((tag != "") && (tag != undefined)) {
         var cleanTag = accents.remove(tag);
         var tagKey = cleanTag.substr(0,2);
-        tagKey = tagKey.toLowerCase();
+        // tagKey = tagKey.toLowerCase();
 
         if (table.hasOwnProperty(tagKey)) {
             let oldObj = table[tagKey];

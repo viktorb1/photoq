@@ -499,11 +499,11 @@ function searchInput(e) {
     oReq.open("GET", url);
     oReq.addEventListener("load", respCallback);
     oReq.send();
-    autocomplete.setState({ tags: [] })
+    autocomplete.setState({ tags: [] });
 
     function respCallback() {
-        var resp = JSON.parse(oReq.responseText)
-        autocomplete.setState({ tags: Object.keys(resp.tags || []) })
+        var resp = JSON.parse(oReq.responseText);
+        autocomplete.setState({ tags: Object.keys(resp.tags || []) });
     }
 }
 
