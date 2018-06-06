@@ -384,15 +384,13 @@ function hideAutocomplete() {
 
 
 function generateSuggestions(e) {
-    e.preventDefault();
-    e.stopPropagation();
-
     if (e.keyCode == 13) {
         photoByNumber();
         return;
     }
 
     if (e.keyCode == 9) {
+        e.preventDefault();
         addTagToSearchList();
         return;
     }
