@@ -493,8 +493,10 @@ function searchInput(e) {
         return;
     }
 
-    if (e.target.value.length == 1)
+    if (e.target.value.length == 1) {
+        autocomplete.setState({ tags: [] });
         return;
+    }
 
     var oReq = new XMLHttpRequest();
     var url = encodeURIComponent("query?autocomplete=" + e.target.value);

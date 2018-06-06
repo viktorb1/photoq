@@ -123,7 +123,8 @@ function handler (request, response) {
         auto.makeTagTable(tagTableCallback);
 
         function tagTableCallback(data) {
-            let subTable = Object.assign({}, data[keyword.slice(0,2)]);
+            let subTable = Object.assign({}, data[keyword.slice(0,2).toLowerCase()]);
+            console.log(subTable);
 
             for (let prop in subTable.tags)
                 if (!prop.toLowerCase().startsWith(keyword.toLowerCase()))
