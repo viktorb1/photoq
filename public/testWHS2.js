@@ -3,7 +3,8 @@ var photos = [];
 // Called when the user pushes the "submit" button
 function photoByNumber() {
     hideAutocomplete();
-    var keywords = autocomplete.state.selectedTags;
+    var keywords = autocomplete.state.selectedTags.slice();
+    autocomplete.setState({ selectedTags: [] })
     document.getElementById("keywords").value = '';
     var message = document.getElementById("note");
     var reactEl = document.getElementById("react");
