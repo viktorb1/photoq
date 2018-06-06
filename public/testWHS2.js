@@ -4,6 +4,7 @@ var photos = [];
 function photoByNumber() {
     hideAutocomplete();
     var keywords = autocomplete.state.selectedTags;
+    document.getElementById("keywords").value = '';
     var message = document.getElementById("note");
     var reactEl = document.getElementById("react");
     var results = document.getElementById("results");
@@ -448,11 +449,11 @@ class AutoComplete extends React.Component {
                 ),
                 React.createElement(
                     "div",
-                    { id: "suggestion-box", style: { display:  this.state.tags.length > 0 ? 'block' : 'none'  } },
+                    { id: "suggestion-box", style: { display:  'block' } },
                     React.createElement(
                         "p",
                         { className: "ab-message" },
-                        "Suggested Tags"
+                        searchTags.size >  0 ? "Suggested Tags" : "No tags found"
                     ),
                     searchTagsElements,
                 )
@@ -492,7 +493,7 @@ function searchInput(e) {
 
     function respCallback() {
         var resp = JSON.parse(oReq.responseText)
-        autocomplete.setState({ tags: Object.keys(resp.tags) })
+        autocomplete.setState({ tags: Object.keys(resp.tags || []) })
     }
 }
 
