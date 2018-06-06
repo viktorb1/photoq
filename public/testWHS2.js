@@ -488,6 +488,7 @@ function searchInput(e) {
     oReq.open("GET", url);
     oReq.addEventListener("load", respCallback);
     oReq.send();
+    autocomplete.setState({ tags: [] })
 
     function respCallback() {
         var resp = JSON.parse(oReq.responseText)
