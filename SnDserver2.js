@@ -107,7 +107,7 @@ function handler (request, response) {
                 let toSend = { message: "", rows: rows}
 
                 if (rows.length == 0)
-                    toSend.message = "These were no photos satisfying this query.";
+                    toSend.message = "There were no photos satisfying this query.";
                 else
                     toSend.message = "These are all of the photos satisfying this query.";
 
@@ -126,7 +126,7 @@ function handler (request, response) {
             let subTable = Object.assign({}, data[keyword.slice(0,2)]);
 
             for (let prop in subTable.tags)
-                if (!prop.startsWith(keyword))
+                if (!prop.toLowerCase().startsWith(keyword.toLowerCase()))
                     delete subTable.tags[prop];
 
             response.writeHead(200, {"Content-Type": "text/html"});

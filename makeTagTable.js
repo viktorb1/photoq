@@ -35,15 +35,15 @@ function makeTagTable(callback) {
         } else {
             var tags, landmark;
             
-            for (let i=0; i<data.length; i++) {
+            for (let i = 0; i < data.length; i++) {
                 landmark = data[i].location;
                 insert(landmark, tagTable);
                 tags = data[i].tags;
                 let tagList = tags.split(",");
                 tagList.map(function (tag) { tag.trim(); });
                 
-                for (let j=0; j<tagList.length; j++) {
-                    insert(tagList[j],tagTable);
+                for (let j = 0; j < tagList.length; j++) {
+                    insert(tagList[j], tagTable);
                 }
             
             }
@@ -61,7 +61,7 @@ function insert(tag, table) {
     if ((tag != "") && (tag != undefined)) {
         var cleanTag = accents.remove(tag);
         var tagKey = cleanTag.substr(0,2);
-        // tagKey = tagKey.toLowerCase();
+        tagKey = tagKey.toLowerCase();
 
         if (table.hasOwnProperty(tagKey)) {
             let oldObj = table[tagKey];

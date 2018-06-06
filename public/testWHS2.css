@@ -355,6 +355,11 @@ img {
         margin-left: 4vw;
     }
 
+    #yousearchedfor, .ab-message, .suggested-tags button p {
+        font-size: 4vw;
+    }
+
+
     .tagText {
         font-size: 4.5vw;
     }
@@ -421,13 +426,15 @@ img {
 
     #autocomplete-box {
         position: relative;
-        width: calc(100% - 2.5vw);
+        width: 90%;
         border: none;
         font-size: 5vw;
+        margin: 4vw;
     }
 
     p.searchQueries {
         padding: 2vw 3vw;
+        font-size: 4vw;
     }
 
     .add-new-tag input {

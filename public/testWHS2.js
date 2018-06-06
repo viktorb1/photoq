@@ -490,8 +490,11 @@ function searchInput(e) {
         showAutocomplete();
     } else {
         hideAutocomplete();
-        return
+        return;
     }
+
+    if (e.target.value.length == 1)
+        return;
 
     var oReq = new XMLHttpRequest();
     var url = encodeURIComponent("query?autocomplete=" + e.target.value);
