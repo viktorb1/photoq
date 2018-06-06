@@ -486,7 +486,7 @@ function hideAutocomplete() {
 }
 
 function searchInput(e) {
-    if (e.target.value.length >= 2) {
+    if (e.target.value.length >= 1) {
         showAutocomplete();
     } else {
         hideAutocomplete();
