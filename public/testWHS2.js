@@ -100,12 +100,12 @@ function photoByNumber() {
     function inputIsValid(url) {
 
         keywords = url.split(',');
-        
+
         if (keywords.length == 0)
             return false;
 
         for(let i = 0; i < keywords.length; i++) {
-           
+
             keywords[i] = keywords[i].trim();
 
             if (/[0-9!@#$%^&*()_-_/<>\[\]\{\\\/|\}`~,.]/.test(keywords[i]))
@@ -247,7 +247,7 @@ class TileControl extends React.Component {
         for (var i = 0; i < _tags.length; i++)
             args.push(
                 React.createElement(
-                    Tag, 
+                    Tag,
                     {
                         remove: this.removeTag.bind(this),
                         text: _tags[i],
@@ -316,7 +316,6 @@ class ImageTile extends React.Component {
     } // render
 } // class
 
-
 // The react component for the whole image gallery
 // Most of the code for this is in the included library
 class App extends React.Component {
@@ -366,16 +365,10 @@ class App extends React.Component {
 const reactContainer = document.getElementById("react");
 var app = ReactDOM.render(React.createElement(App),reactContainer);
 
-
-
-
 function showAutocomplete() {
     var acb = document.getElementById("autocomplete-box");
     acb.style.display = "block";
 }
-
-
-
 
 function hideAutocomplete() {
     var acb = document.getElementById("autocomplete-box");
@@ -389,35 +382,5 @@ function generateSuggestions(e) {
         return;
     }
 
-    if (e.keyCode == 9) {
-        e.preventDefault();
-        addTagToSearchList();
-        return;
-    }
-
     document.getElementById("suggestion-box").style.display = "block";
 }
-
-
-function addTagToSearchList() {
-    var input = document.getElementById("keywords");
-
-
-    var searchItem = React.createElement(
-      "p",
-      { className: "tagText" },
-      input.value,
-      React.createElement(
-        "a",
-        { className: "remove-tag" },
-        "\u2715"
-      )
-    );
-
-    ReactDOM.render(
-        searchItem,
-        document.getElementById("selected-tags")
-    );
-
-}
-

@@ -1,11 +1,10 @@
-
 body {
-	min-height: 100vh;  /* need this line to 
-					tell body to fill viewport */
-	font-family: 'Lato', sans-serif;
-	background-color: white;
-	display: flex;
-	flex-direction: column;
+    min-height: 100vh;  /* need this line to 
+    tell body to fill viewport */
+    font-family: 'Lato', sans-serif;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
     color: #909EB8;
     font-size: 1.5vw;
 }
@@ -36,7 +35,6 @@ body {
     width: 100%;
 }
 
-
 #autocomplete-box {
     position: absolute;
     background: white;
@@ -44,17 +42,16 @@ body {
     align-self: flex-start;
     width: 40vw;
     margin-top: 4.5vw;
-    padding: 1.5vw;
+    padding: 1.0vw;
     z-index: 999;
     display: none;
 }
 
-#press-tab-message {
+/*#press-tab-message {
     padding-bottom: 1vw;
-}
+}*/
 
-
-#suggested-tags {
+.suggested-tags {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -69,35 +66,29 @@ body {
 #suggestion-box {
     display: flex;
     justify-content: space-between;
-    border-top: 1px solid #828696;
-    padding-top: 1vw;
     flex-direction: column;
     display: none;
 }
 
-
- button p {
+button p {
     font-style: normal;
- }
-
+}
 
 main {
-     flex: 1 0 auto;   /*the sticky footer trick without the footer */
-     padding: 2vw 2vw;
-     background: #F0F0F0;
-     align-items: center;
+    flex: 1 0 auto;   /*the sticky footer trick without the footer */
+    padding: 2vw 2vw;
+    background: #F0F0F0;
+    align-items: center;
 }
-
 
 input {
-	border-style: solid;
-	border-radius: 5px;
-	font-size: medium;
+    border-style: solid;
+    border-radius: 5px;
+    font-size: medium;
 }
 
-
 p {
-	margin: 1vw 0.5vw;
+    margin: 1vw 0.5vw;
     font-size: 1.5vw;
 }
 
@@ -109,8 +100,6 @@ div#photoDisplay {
 img {
     width: 100%;
 }
-
-
 
 header {
     display: flex;
@@ -155,17 +144,16 @@ h1 {
     font-weight: bold;
 }
 
-    .toggle {
-        display: flex;
-    }
-
+.toggle {
+    display: flex;
+}
 
 h2 {
-   font-family: sans-serif;
-   font-size: xx-large;
-   text-align: left;
-   margin: 10px;
-   color: #999;
+    font-family: sans-serif;
+    font-size: xx-large;
+    text-align: left;
+    margin: 10px;
+    color: #999;
 }
 
 body {
@@ -174,21 +162,21 @@ body {
 }
 
 div.selectedControls {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
-        position: absolute;
-        flex-wrap: wrap;
-        align-content: center;
-        font-size: 2vw;
-        background: #00000090;
-        padding: 0 6vw;
-        width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    position: absolute;
+    flex-wrap: wrap;
+    align-content: center;
+    font-size: 2vw;
+    background: #00000090;
+    padding: 0 6vw;
+    width: 90%;
 }
 
 div.normalControls {
-        display: none;
+    display: none;
 }
 
 /* Photo tile - position and size will be given by PhotoGallery */
@@ -204,16 +192,16 @@ div.tile {
 
 /* Tag styling */
 .tagText {
-   z-index: 2;
-   background-color: #86B2B5;
-   padding: 1vw;
-   border-radius: 5px;
-   color: white;
-   word-break: break-all;
-   text-align: center;
-   font-size: large;
-   margin: 7px;
-   padding-right: 0;
+    z-index: 2;
+    background-color: #86B2B5;
+    padding: 0.7vw;
+    border-radius: 9px;
+    color: white;
+    word-break: break-all;
+    text-align: center;
+    font-size: large;
+    margin: 7px;
+    padding-right: 0;
 }
 
 p.searchQueries {
@@ -226,14 +214,6 @@ p.searchQueries {
 img {
     display: block;
 }
-
-/* so far nothing special when image selected */
-img.normal {
-}
-
-img.selected {
-}
-
 
 .remove-query {
     color: white;
@@ -285,14 +265,14 @@ img.selected {
 }
 
 
-#suggested-tags button {
+.suggested-tags button {
     background: transparent;
     border: none;
     overflow: hidden;
     padding: 0;
 }
 
-#suggested-tags button p {
+.suggested-tags button p {
     transform: rotate(45deg);
     font-size: 3vw;
     margin: 0;
@@ -317,12 +297,10 @@ img.selected {
     }
 }
 
-
 @media (min-width: 601px) and (max-width: 900px) {
     h1 {
         font-size: 5vw;
     }
-
 
     body {
         font-size: 3vw;
@@ -344,7 +322,6 @@ img.selected {
     #autocomplete-box {
         margin-top: 6.5vw;
     }
-
 
     p.searchQueries {
         padding: 1vw 1.5vw;
@@ -428,6 +405,7 @@ img.selected {
     .toggle {
         display: none !important;
     }
+
     #query {
         width: 100%;
         align-items:center;
@@ -460,5 +438,4 @@ img.selected {
     .add-new-tag a.add-tag {
         font-size: 5.5vw;
     }
-
 }

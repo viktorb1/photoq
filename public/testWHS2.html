@@ -6,8 +6,7 @@
 <meta name="viewport" content="width=device-width">
 <link rel="stylesheet" type="text/css" href="http://web.cs.ucdavis.edu/~amenta/s18/reset.css">
 <link rel="stylesheet" type="text/css" href="testWHS2.css">
-<link href="https://fonts.googleapis.com/css?family=Lato
-:400i,700i,900i" rel="stylesheet"> 
+<link href="https://fonts.googleapis.com/css?family=Lato:400i,700i,900i" rel="stylesheet">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons:100,400" rel="stylesheet">
 </head>
 
@@ -17,10 +16,9 @@
 
         <div id="query"  class="toggle">
             <div id="search">
-                <input 
-                id="keywords"
+                <input id="keywords"
                 placeholder="Enter photo keywords here"
-                onfocus="showAutocomplete()"
+                oninput="showAutocomplete()"
                 onkeydown="generateSuggestions(event)"
                 autocomplete="off"/>
                 <button type="button" class="material-icons" onclick="photoByNumber()">search</button>
@@ -33,16 +31,15 @@
                         <a class="remove-tag">✕</a>
                     </p> -->
                 </div>
-                <p class="ab-message">Press tab to create a tag & enter to search</p>
                 <div id="suggestion-box">
                     <p class="ab-message">Suggested Tags</p>
-                    <div id="suggested-tags">
+                    <div class="suggested-tags">
                         <p class="tagText suggested-tag">Random tag</p>
                         <button type="button">
                             <p class="material-icons">arrow_back</p>
                         </button>
                     </div>
-                    <div id="suggested-tags">
+                    <div class="suggested-tags">
                         <p class="tagText suggested-landmark">Random tag</p>
                         <button type="button">
                             <p class="material-icons">arrow_back</p>
@@ -67,8 +64,7 @@
     <!-- </div> -->
     </main>
 
-
-    <script src="https://unpkg.com/react@15/dist/react.js"></script> 
+    <script src="https://unpkg.com/react@15/dist/react.js"></script>
     <script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
     <script src="prop-types.js"></script>
     <script src="react-photo-gallery.js"></script>

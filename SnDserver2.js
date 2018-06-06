@@ -25,9 +25,7 @@ function handler (request, response) {
     else
         request.addListener('end', staticHandler).resume();
 
-
     var keywords;
-
 
     function handleQuery(url) {
         url = decodeURIComponent(url).substring(6);
@@ -37,12 +35,11 @@ function handler (request, response) {
         } else if (isValidAutocomplete(url)) {
             generateAutocomplete(url);
         } else {
-             response.writeHead(400, {"Content-Type": "text/html"});
-             response.write("Bad request");
-             response.end();
+            response.writeHead(400, {"Content-Type": "text/html"});
+            response.write("Bad request");
+            response.end();
         }
     }
-
 
     function handleUpdateTag(url) {
         var urlQuery = decodeURIComponent(url).split("?");
@@ -50,20 +47,19 @@ function handler (request, response) {
 
         let query = "UPDATE photoTags SET tags=? WHERE idNum = ?";
         db.run(query, queryObj.tags, queryObj.idNum, function() {
-             response.writeHead(204);
-             response.end();
+            response.writeHead(204);
+            response.end();
         });
     }
-
 
     function isValidKeyList(url) {
 
         if (!url.startsWith("?keyList="))
             return false;
-        
+
         url = url.substring(9);
         keywords = url.split('+');
-        
+
         if (keywords.length == 0)
             return false;
 
@@ -73,7 +69,6 @@ function handler (request, response) {
 
         return true;
     }
-
 
     function isValidAutocomplete(url) {
 
@@ -88,7 +83,7 @@ function handler (request, response) {
         return true;
     }
 
-    
+
     function generateObject(keywords) {
 
         let query = "SELECT * FROM photoTags WHERE "
@@ -102,7 +97,6 @@ function handler (request, response) {
         }
 
         db.all(query, writeObj);
-
 
         function writeObj(error, rows) {
             if (error)
@@ -123,7 +117,6 @@ function handler (request, response) {
         }
     }
 
-
     function generateAutocomplete(url) {
         var keyword = url.substring(14);
 
@@ -142,18 +135,15 @@ function handler (request, response) {
         }
     }
 
-
     function staticHandler() {
         file.serve(request, response, load404Page);
     }
-
 
     function load404Page(err, result) {
         if(err && err.status === 404)
             file.serveFile('/not-found.html', 400, {}, request, response);
     }
 }
-
 
 var server = http.createServer(handler);
 
