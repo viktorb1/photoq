@@ -18,35 +18,13 @@
             <div id="search">
                 <input id="keywords"
                 placeholder="Enter photo keywords here"
-                oninput="showAutocomplete()"
-                onkeydown="generateSuggestions(event)"
+                oninput="searchInput(event)"
+                onkeydown="searchKeyDown(event)"
                 autocomplete="off"/>
                 <button type="button" class="material-icons" onclick="photoByNumber()">search</button>
             </div>
 
-            <div id="autocomplete-box">
-                <div id="selected-tags">
-                    <!-- <p class="tagText">
-                        This is a random tag
-                        <a class="remove-tag">✕</a>
-                    </p> -->
-                </div>
-                <div id="suggestion-box">
-                    <p class="ab-message">Suggested Tags</p>
-                    <div class="suggested-tags">
-                        <p class="tagText suggested-tag">Random tag</p>
-                        <button type="button">
-                            <p class="material-icons">arrow_back</p>
-                        </button>
-                    </div>
-                    <div class="suggested-tags">
-                        <p class="tagText suggested-landmark">Random tag</p>
-                        <button type="button">
-                            <p class="material-icons">arrow_back</p>
-                        </button>
-                    </div>
-                </div>
-            </div>
+            <div id="autocomplete-box"></div>
         </div>
         <button id="mobilebutton" type="button" class="material-icons" onclick="toggleSearchBar()">search</button>
 

@@ -2,91 +2,83 @@ var photos = [];
 
 // Called when the user pushes the "submit" button
 function photoByNumber() {
-    var keywords = document.getElementById("keywords").value;
+    hideAutocomplete();
+    var keywords = autocomplete.state.selectedTags;
     var message = document.getElementById("note");
     var reactEl = document.getElementById("react");
     var results = document.getElementById("results");
     hideAutocomplete();
     document.querySelector("#query").classList.add("toggle");
-    document.getElementById("suggestion-box").style.display = "none";
 
-    if (keywords != "") {
-        if (inputIsValid(keywords)) {
-            var oReq = new XMLHttpRequest();
-            var url = encodeURIComponent("query?keyList=" + keywords.join('+'));
+    if (keywords.length > 0) {
+        var oReq = new XMLHttpRequest();
+        var url = encodeURIComponent("query?keyList=" + keywords.join('+'));
 
-            oReq.open("GET", url);
-            oReq.addEventListener("load", respCallback);
-            oReq.send();
+        oReq.open("GET", url);
+        oReq.addEventListener("load", respCallback);
+        oReq.send();
 
-            function respCallback() {
-                var resobj = JSON.parse(oReq.responseText)
-                photos = resobj.rows;
-                var query = document.getElementById("query");
+        function respCallback() {
+            var resobj = JSON.parse(oReq.responseText)
+            photos = resobj.rows;
+            var query = document.getElementById("query");
 
-                if (oReq.status == 400) {
-                    message.textContent = "Sorry, your request failed!";
-                    message.style.display = "flex";
-                    reactEl.style.display = "none"
-                    results.style.display = "none";
-                } else if (photos.length == 0) {
-                    message.textContent = resobj.message;
-                    message.style.display = "flex";
-                    reactEl.style.display = "none"
-                    results.style.display = "none";
-                } else {
-                    document.querySelector("#query").classList.add("toggle")
-                    message.style.display = "none";
-                    reactEl.style.display = "block";
-                    results.style.display = "flex";
-
-                    var previousQuery = document.querySelectorAll(".searchQueries");
-
-                    for(let i = 0; i < previousQuery.length; i++)
-                        results.removeChild(previousQuery[i]);
-
-                    for(let i = 0; i < keywords.length; i++)
-                    {
-                        var searchQuery = document.createElement("p");
-                        searchQuery.textContent = keywords[i];
-                        searchQuery.className = "searchQueries";
-                        var queryRemover = document.createElement("a");
-                        queryRemover.href = '#';
-                        queryRemover.textContent = '✕';
-                        queryRemover.className = 'remove-query';
-                        queryRemover.dataset.query = keywords[i];
-
-                        queryRemover.addEventListener('click', function(e) {
-                            e.preventDefault();
-                            console.log('removing', e.target.dataset.query);
-                            var index = keywords.indexOf(e.target.dataset.query);
-                            keywords.splice(index, 1);
-                            document.getElementById("keywords").value = keywords.join(',');
-                            photoByNumber();
-                        })
-                        searchQuery.appendChild(queryRemover);
-                        results.appendChild(searchQuery);
-                    }
-
-                    var urlStart = "http://lotus.idav.ucdavis.edu/public/ecs162/UNESCO/";
-
-                    var first12photos = photos.slice(0,12);
-
-                    for(let i = 0; i < first12photos.length; i++) {
-                        first12photos[i].src = urlStart + first12photos[i].filename;
-                    }
-
-                    app.setState({ photos: first12photos });
-                    window.dispatchEvent(new Event('resize'));
-
-                }
-            }
-        } else {
-                // hide react element
-                reactEl.style.display = "none";
+            if (oReq.status == 400) {
+                message.textContent = "Sorry, your request failed!";
                 message.style.display = "flex";
-                message.textContent = "Invalid input, please try again!";
+                reactEl.style.display = "none"
                 results.style.display = "none";
+            } else if (photos.length == 0) {
+                message.textContent = resobj.message;
+                message.style.display = "flex";
+                reactEl.style.display = "none"
+                results.style.display = "none";
+            } else {
+                document.querySelector("#query").classList.add("toggle")
+                message.style.display = "none";
+                reactEl.style.display = "block";
+                results.style.display = "flex";
+
+                var previousQuery = document.querySelectorAll(".searchQueries");
+
+                for(let i = 0; i < previousQuery.length; i++)
+                    results.removeChild(previousQuery[i]);
+
+                for(let i = 0; i < keywords.length; i++)
+                {
+                    var searchQuery = document.createElement("p");
+                    searchQuery.textContent = keywords[i];
+                    searchQuery.className = "searchQueries";
+                    var queryRemover = document.createElement("a");
+                    queryRemover.href = '#';
+                    queryRemover.textContent = '✕';
+                    queryRemover.className = 'remove-query';
+                    queryRemover.dataset.query = keywords[i];
+
+                    queryRemover.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        console.log('removing', e.target.dataset.query);
+                        var index = keywords.indexOf(e.target.dataset.query);
+                        keywords.splice(index, 1);
+                        document.getElementById("keywords").value = keywords.join(',');
+                        photoByNumber();
+                    })
+                    searchQuery.appendChild(queryRemover);
+                    results.appendChild(searchQuery);
+                }
+
+                var urlStart = "http://lotus.idav.ucdavis.edu/public/ecs162/UNESCO/";
+
+                var first12photos = photos.slice(0,12);
+
+                for(let i = 0; i < first12photos.length; i++) {
+                    first12photos[i].src = urlStart + first12photos[i].filename;
+                }
+
+                app.setState({ photos: first12photos });
+                window.dispatchEvent(new Event('resize'));
+
+            }
         }
     } else {
         // hide react element
@@ -94,28 +86,6 @@ function photoByNumber() {
         message.style.display = "flex";
         message.textContent = "You have no search terms in your input.";
         results.style.display = "none";
-    }
-
-    // from my server code
-    function inputIsValid(url) {
-
-        keywords = url.split(',');
-
-        if (keywords.length == 0)
-            return false;
-
-        for(let i = 0; i < keywords.length; i++) {
-
-            keywords[i] = keywords[i].trim();
-
-            if (/[0-9!@#$%^&*()_-_/<>\[\]\{\\\/|\}`~,.]/.test(keywords[i]))
-                return false;
-
-            if (keywords[i] == "")
-                return false;
-        }
-
-        return true;
     }
 }
 
@@ -268,8 +238,6 @@ class TileControl extends React.Component {
 
 // A react component for an image tile
 class ImageTile extends React.Component {
-
-
     render() {
         // onClick function needs to remember these as a closure
         var _onClick = this.props.onClick;
@@ -319,7 +287,6 @@ class ImageTile extends React.Component {
 // The react component for the whole image gallery
 // Most of the code for this is in the included library
 class App extends React.Component {
-
     constructor(props) {
         super(props);
         this.state = { photos: photos , width: window.innerWidth};
@@ -365,6 +332,138 @@ class App extends React.Component {
 const reactContainer = document.getElementById("react");
 var app = ReactDOM.render(React.createElement(App),reactContainer);
 
+class KeywordSelected extends React.Component {
+    remove(e) {
+        e.preventDefault();
+        this.props.remove(this.props.text);
+    }
+
+    render() {
+        return (
+            React.createElement(
+                "div",
+                { className: "suggested-tags" },
+                React.createElement(
+                    "p",
+                    { className: "tagText" },
+                    this.props.text,
+                    React.createElement(
+                        "a",
+                        { className: "remove-tag", onClick: this.remove.bind(this) },
+                        "\u2715"
+                    )
+                )
+            )
+        );
+    }
+}
+
+class KeywordSuggestion extends React.Component {
+    add(e) {
+        e.preventDefault();
+        this.props.add(this.props.text);
+    }
+
+    render() {
+        var className = this.props.type === 'landmark' ? 'suggested-landmark' : 'suggested-tag';
+        return (
+            React.createElement(
+                "div",
+                { className: "suggested-tags" },
+                React.createElement(
+                    "p",
+                    { className: "tagText " + className },
+                    this.props.text
+                ),
+                React.createElement(
+                    "button",
+                    { type: "button" },
+                    React.createElement(
+                        "p",
+                        { className: "material-icons", onClick: this.add.bind(this) },
+                        "arrow_back"
+                    )
+                )
+            )
+        );
+    }
+}
+
+class AutoComplete extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { selectedTags: [], tags: [] };
+    }
+
+    addTag(tag) {
+        this.setState({ selectedTags: this.state.selectedTags.concat([tag]) })
+    }
+
+    removeTag(tag) {
+        var newTags = this.state.selectedTags;
+        var index = newTags.indexOf(tag);
+        newTags.splice(index, 1);
+        this.setState({ selectedTags: newTags })
+    }
+
+    render() {
+        var selectedTagsElements = [];
+        var searchTagsElements = [];
+        var selectedTags = new Set(this.state.selectedTags);
+        var searchTags = new Set(this.state.tags.filter(x => !selectedTags.has(x)));
+
+        selectedTags.forEach(tag  => {
+            selectedTagsElements.push(
+                React.createElement(
+                    KeywordSelected, {
+                        key: 'selected-tag-' + tag,
+                        text: tag,
+                        remove: this.removeTag.bind(this),
+                    }
+                )
+            );
+        })
+
+        searchTags.forEach(tag => {
+            searchTagsElements.push(
+                React.createElement(
+                    KeywordSuggestion, {
+                        key: 'tag-' + tag,
+                        text: tag,
+                        type: 'tag',
+                        add: this.addTag.bind(this),
+                    }
+                )
+            );
+        })
+
+        return (
+            React.createElement(
+                "div",
+                null,
+                React.createElement(
+                    "div",
+                    { id: "selected-tags" },
+                    selectedTagsElements,
+                ),
+                React.createElement(
+                    "div",
+                    { id: "suggestion-box", style: { display:  this.state.tags.length > 0 ? 'block' : 'none'  } },
+                    React.createElement(
+                        "p",
+                        { className: "ab-message" },
+                        "Suggested Tags"
+                    ),
+                    searchTagsElements,
+                )
+            )
+        );
+    }
+}
+
+const autocompleteContainer = document.getElementById("autocomplete-box");
+var autocomplete = ReactDOM.render(React.createElement(AutoComplete), autocompleteContainer);
+
 function showAutocomplete() {
     var acb = document.getElementById("autocomplete-box");
     acb.style.display = "block";
@@ -375,12 +474,30 @@ function hideAutocomplete() {
     acb.style.display = "none";
 }
 
+function searchInput(e) {
+    if (e.target.value.length >= 2) {
+        showAutocomplete();
+    } else {
+        hideAutocomplete();
+        return
+    }
 
-function generateSuggestions(e) {
+    var oReq = new XMLHttpRequest();
+    var url = encodeURIComponent("query?autocomplete=" + e.target.value);
+
+    oReq.open("GET", url);
+    oReq.addEventListener("load", respCallback);
+    oReq.send();
+
+    function respCallback() {
+        var resp = JSON.parse(oReq.responseText)
+        autocomplete.setState({ tags: Object.keys(resp.tags) })
+    }
+}
+
+function searchKeyDown(e) {
     if (e.keyCode == 13) {
         photoByNumber();
         return;
     }
-
-    document.getElementById("suggestion-box").style.display = "block";
 }
