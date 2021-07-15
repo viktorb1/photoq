@@ -1,29 +1,12 @@
-# README #
+# PhotoQ
 
-This README would normally document whatever steps are necessary to get your application up and running.
+To run the app, enter `node SnDserver2.js` and then visit `http://127.0.0.1:56272/testWHS2.html`
 
-### What is this repository for? ###
+# Screenshots
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+![]("https://i.imgur.com/vqSNgh8.jpg")
 
-### How do I get set up? ###
+![]("https://i.imgur.com/bE9Utog.jpg")
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+![]("https://i.imgur.com/Kx7BxVd.jpg")
 
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
