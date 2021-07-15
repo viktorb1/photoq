@@ -1,0 +1,52 @@
+<!doctype HTML>
+<html>
+<head>
+<title>PhotoQ - Search for pictures!</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<link rel="stylesheet" type="text/css" href="http://web.cs.ucdavis.edu/~amenta/s18/reset.css">
+<link rel="stylesheet" type="text/css" href="testWHS2.css">
+<link href="https://fonts.googleapis.com/css?family=Lato:400i,700i,900i" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons:100,400" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <h1>PHOTOQ</h1>
+
+        <div id="query"  class="toggle">
+            <div id="search">
+                <input id="keywords"
+                placeholder="Enter photo keywords here"
+                oninput="searchInput(event)"
+                onkeydown="searchKeyDown(event)"
+                onfocus="showAutocomplete()"
+                autocomplete="off"/>
+                <button type="button" class="material-icons" onclick="photoByNumber()">search</button>
+            </div>
+
+            <div id="autocomplete-box"></div>
+        </div>
+        <button id="mobilebutton" type="button" class="material-icons" onclick="toggleSearchBar()">search</button>
+
+    </header>
+
+    <main onclick="hideAutocomplete()">
+
+        <div id="results">
+            <p id = "yousearchedfor">You searched for</p>
+        </div>
+
+        <div id="react"></div>
+        <!-- <div id="mynote"> -->
+        <p id="note">Nothing's been searched yet!<br/> Use the search above</p>
+    <!-- </div> -->
+    </main>
+
+    <script src="https://unpkg.com/react@15/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+    <script src="prop-types.js"></script>
+    <script src="react-photo-gallery.js"></script>
+    <script src="testWHS2.js"> </script>
+</body>
+</html>
