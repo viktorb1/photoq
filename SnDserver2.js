@@ -22,6 +22,9 @@ function handler (request, response) {
         handleQuery(request.url);
     else if (request.url.startsWith("/updateTag"))
         handleUpdateTag(request.url);
+    else if (request.url == '/') {
+        file.serveFile('/testWHS2.html', 200, {}, request, response);
+    }
     else
         request.addListener('end', staticHandler).resume();
 
@@ -147,4 +150,4 @@ function handler (request, response) {
 
 var server = http.createServer(handler);
 
-server.listen(56272);
+server.listen(80);

@@ -69,7 +69,8 @@ function photoByNumber() {
                     results.appendChild(searchQuery);
                 }
 
-                var urlStart = "http://lotus.idav.ucdavis.edu/public/ecs162/UNESCO/";
+                var urlStart = "https://raw.githubusercontent.com/viktorb1/images/master/UNESCO/";
+
 
                 var first12photos = photos.slice(0,12);
 

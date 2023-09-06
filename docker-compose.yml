@@ -1,0 +1,8 @@
+version: '3'
+services:
+  my-app:
+    build:
+      context: .
+    restart: always
+    ports:
+      - "80:80"
